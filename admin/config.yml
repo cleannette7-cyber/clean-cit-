@@ -14,7 +14,7 @@ media_library:
     api_key: "527383393854428"
 
 site_url: "https://clean-cite.org"
-display_url: "https://clean-cite.netlify.app"
+display_url: "clean-cite.org"
 logo_url: "/images/logo-clean-cite.png"
 locale: "fr"
 
