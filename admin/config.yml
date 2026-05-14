@@ -13,7 +13,7 @@ media_library:
     cloud_name: "dljukcipa"
     api_key: "527383393854428"
 
-site_url: "https://VOTRE-SITE-NETLIFY.netlify.app"
+site_url: "https://clean-cite.netlify.app"
 display_url: "https://VOTRE-SITE-NETLIFY.netlify.app"
 logo_url: "/images/logo-clean-cite.png"
 locale: "fr"
