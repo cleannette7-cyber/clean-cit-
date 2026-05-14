@@ -10,8 +10,8 @@ public_folder: "/images/uploads"
 media_library:
   name: cloudinary
   config:
-    cloud_name: "A_REMPLACER_PAR_VOTRE_CLOUD_NAME"
-    api_key: "A_REMPLACER_PAR_VOTRE_API_KEY"
+    cloud_name: "dljukcipa"
+    api_key: "527383393854428"
 
 site_url: "https://VOTRE-SITE-NETLIFY.netlify.app"
 display_url: "https://VOTRE-SITE-NETLIFY.netlify.app"
