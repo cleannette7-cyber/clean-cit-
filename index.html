@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean-Cité | Nettoyage Professionnel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2f5e;
+  --orange: #f47920;
+  --blue: #2b6cb0;
+  --light: #f8f9fc;
+  --gray: #6b7280;
+  --light-gray: #e5e7eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Nunito',sans-serif; color:var(--navy); overflow-x:hidden; }
+
+/* ===== NAV ===== */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 40px; background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(12px); box-shadow:0 2px 20px rgba(0,0,0,0.08);
+  gap:16px;
+}
+.nav-brand { display:flex; align-items:center; gap:8px; text-decoration:none; flex-shrink:0; }
+.nav-logo { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:2px; color:var(--navy); }
+.nav-logo span { color:var(--orange); }
+.nav-city-logo { height:54px; width:auto; }
+.nav-worker { height:58px; width:auto; }
+
+.nav-right { display:flex; align-items:center; gap:24px; }
+.nav-right a {
+  text-decoration:none; font-weight:700; font-size:0.88rem;
+  color:var(--navy); text-transform:uppercase; letter-spacing:1px;
+  white-space:nowrap; transition:color 0.2s;
+}
+.nav-right a:hover { color:var(--orange); }
+.nav-cta {
+  background:var(--orange); color:white !important; padding:10px 22px;
+  border-radius:50px; font-weight:800 !important;
+  box-shadow:0 4px 16px rgba(244,121,32,0.4);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(244,121,32,0.5); }
+
+/* DROPDOWN */
+.dd-wrap { position:relative; }
+.dd-btn {
+  background:none; border:none; font-family:'Nunito',sans-serif;
+  font-weight:700; font-size:0.88rem; color:var(--navy);
+  text-transform:uppercase; letter-spacing:1px; cursor:pointer;
+  padding:8px 0; transition:color 0.2s; white-space:nowrap;
+}
+.dd-btn:hover { color:var(--orange); }
+.dd-menu {
+  display:none; position:absolute; top:calc(100% + 14px); right:0;
+  background:white; border-radius:16px; min-width:440px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.15); padding:24px;
+  gap:28px; border-top:3px solid var(--orange); z-index:999;
+}
+.dd-menu.open { display:flex; }
+.dd-col { display:flex; flex-direction:column; gap:3px; min-width:180px; }
+.dd-group { font-size:0.7rem; font-weight:800; letter-spacing:2px;
+  text-transform:uppercase; color:var(--orange); padding:8px 0 4px; }
+.dd-menu a {
+  display:block; padding:8px 12px; border-radius:8px;
+  font-size:0.88rem; font-weight:600; color:var(--navy);
+  text-decoration:none; transition:background 0.15s, color 0.15s;
+  white-space:nowrap;
+}
+.dd-menu a:hover { background:var(--light); color:var(--orange); }
+.dd-devis {
+  margin-top:8px; background:linear-gradient(135deg,var(--navy),var(--blue)) !important;
+  color:white !important; text-align:center; font-weight:800 !important;
+  border-radius:50px !important;
+}
+.dd-devis:hover { opacity:0.9; color:white !important; }
+
+/* HAMBURGER */
+.hamburger { display:none; flex-direction:column; gap:5px;
+  background:none; border:none; cursor:pointer; padding:8px; }
+.hamburger span { display:block; width:25px; height:2.5px;
+  background:var(--navy); border-radius:2px; transition:0.3s; }
+
+/* MOBILE NAV */
+@media(max-width:860px) {
+  nav { padding:10px 20px; }
+  .nav-city-logo { height:42px; }
+  .nav-worker { height:46px; }
+  .nav-logo { font-size:1.5rem; }
+  .nav-right { display:none; position:fixed; top:70px; left:0; right:0;
+    background:white; flex-direction:column; align-items:stretch;
+    padding:16px 20px 24px; box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    gap:0; z-index:800; }
+  .nav-right.open { display:flex; }
+  .nav-right a { padding:13px 0; border-bottom:1px solid var(--light-gray); font-size:0.95rem; }
+  .nav-cta { margin-top:12px; text-align:center; padding:14px; border-radius:50px; }
+  .dd-btn { width:100%; text-align:left; padding:13px 0;
+    border-bottom:1px solid var(--light-gray); font-size:0.95rem; }
+  .dd-menu { position:static; flex-direction:column; min-width:unset;
+    box-shadow:none; border:none; padding:8px 0 8px 16px;
+    gap:0; border-left:3px solid var(--orange); margin:4px 0 8px; }
+  .dd-col { min-width:unset; }
+  .hamburger { display:flex; }
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height:100vh;
+  background:linear-gradient(135deg, var(--navy) 0%, #0f1e3d 60%, #162848 100%);
+  display:flex; align-items:center; padding:120px 60px 80px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; bottom:-2px; left:0; right:0;
+  height:100px; background:white;
+  clip-path:ellipse(55% 100% at 50% 100%);
+}
+.hero-content { max-width:600px; position:relative; z-index:2; }
+.hero-badge {
+  display:inline-block; background:rgba(244,121,32,0.2);
+  border:1px solid rgba(244,121,32,0.4); color:var(--orange);
+  font-size:0.78rem; font-weight:800; letter-spacing:2px;
+  text-transform:uppercase; padding:6px 18px; border-radius:50px; margin-bottom:24px;
+}
+.hero h1 {
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(3.5rem,8vw,5.5rem);
+  line-height:0.95; color:white; letter-spacing:3px; margin-bottom:14px;
+}
+.hero h1 span { color:var(--orange); }
+.hero-sub { font-size:1.1rem; color:rgba(255,255,255,0.7); line-height:1.7; margin-bottom:36px; max-width:480px; }
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-primary {
+  background:var(--orange); color:white; padding:15px 34px; border-radius:50px;
+  font-weight:800; font-size:1rem; text-decoration:none;
+  box-shadow:0 8px 28px rgba(244,121,32,0.5); transition:transform 0.2s,box-shadow 0.2s;
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(244,121,32,0.6); }
+.btn-outline {
+  border:2px solid rgba(255,255,255,0.3); color:white; padding:15px 34px;
+  border-radius:50px; font-weight:700; font-size:1rem; text-decoration:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+.btn-outline:hover { border-color:white; background:rgba(255,255,255,0.1); }
+.hero-stats { display:flex; gap:36px; margin-top:48px; padding-top:36px;
+  border-top:1px solid rgba(255,255,255,0.12); }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:2.4rem; color:var(--orange); display:block; }
+.stat-label { font-size:0.78rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:1px; }
+@media(max-width:860px) { .hero { padding:100px 24px 60px; } .hero-stats { gap:20px; } }
+
+/* ===== SECTION COMMUNE ===== */
+.section-label {
+  font-size:0.78rem; font-weight:800; letter-spacing:3px;
+  text-transform:uppercase; color:var(--orange); margin-bottom:10px; display:block;
+}
+.section-title {
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,5vw,3.8rem);
+  letter-spacing:2px; color:var(--navy); margin-bottom:14px; line-height:1;
+}
+.section-sub { font-size:1rem; color:var(--gray); max-width:520px; line-height:1.7; margin-bottom:50px; }
+
+/* ===== SERVICES ===== */
+.services { padding:90px 60px; background:white; }
+@media(max-width:860px) { .services { padding:60px 20px; } }
+
+.cat-header {
+  display:flex; align-items:center; gap:18px; margin-bottom:28px;
+  padding:20px 24px; background:var(--light); border-radius:14px;
+  border-left:5px solid var(--orange);
+}
+.cat-header.cat2 { border-left-color:var(--navy); }
+.cat-pill {
+  background:var(--orange); color:white; font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem; width:52px; height:52px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  box-shadow:0 6px 18px rgba(244,121,32,0.3);
+}
+.cat-pill.p2 { background:var(--navy); box-shadow:0 6px 18px rgba(26,47,94,0.3); }
+.cat-title { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:2px; color:var(--navy); }
+.cat-desc { font-size:0.88rem; color:var(--gray); }
+
+.services-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:20px; margin-bottom:50px;
+}
+.service-card {
+  background:var(--light); border-radius:18px; padding:28px 26px;
+  border:2px solid transparent; cursor:pointer;
+  transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  position:relative; overflow:hidden;
+}
+.service-card:hover {
+  transform:translateY(-5px); box-shadow:0 18px 50px rgba(26,47,94,0.12);
+  border-color:var(--orange);
+}
+.service-card.blue-card { background:linear-gradient(135deg,#f0f5ff,#e8f0fe); }
+.service-card.blue-card:hover { border-color:var(--navy); box-shadow:0 18px 50px rgba(26,47,94,0.12); }
+.svc-icon {
+  width:52px; height:52px; background:linear-gradient(135deg,var(--orange),#f9a04a);
+  border-radius:14px; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:16px; box-shadow:0 6px 18px rgba(244,121,32,0.25);
+}
+.svc-icon.blue { background:linear-gradient(135deg,var(--navy),var(--blue)); box-shadow:0 6px 18px rgba(26,47,94,0.25); }
+.service-card h3 { font-size:1.05rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
+.service-card p { font-size:0.88rem; color:var(--gray); line-height:1.6; }
+.svc-hint {
+  display:inline-block; margin-top:12px; font-size:0.75rem; font-weight:800;
+  color:var(--orange); opacity:0.85; letter-spacing:0.5px;
+}
+
+/* PRICE ELEMENTS */
+.price-badge {
+  display:inline-block; margin-top:12px;
+  background:linear-gradient(135deg,var(--orange),#f9a04a); color:white;
+  font-weight:800; font-size:0.95rem; padding:6px 16px; border-radius:50px;
+  box-shadow:0 4px 12px rgba(244,121,32,0.35);
+}
+.price-list { display:flex; flex-direction:column; gap:7px; margin-top:14px; }
+.price-row {
+  display:flex; justify-content:space-between; align-items:center;
+  background:white; border-radius:9px; padding:8px 12px;
+  border:1px solid var(--light-gray);
+}
+.price-label { font-size:0.83rem; font-weight:700; color:var(--navy); }
+.price-amount {
+  font-size:0.88rem; font-weight:800; color:var(--orange);
+  background:rgba(244,121,32,0.1); padding:3px 10px; border-radius:50px;
+  white-space:nowrap;
+}
+.price-extras { margin-top:12px; border-top:2px dashed var(--light-gray); padding-top:10px; }
+.price-extras-title { font-size:0.7rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:1.5px; color:var(--gray); margin-bottom:7px; }
+.price-row-extra { background:#fff8f4; border-color:rgba(244,121,32,0.15); }
+.price-amount-extra { background:rgba(244,121,32,0.12); }
+.price-note { font-size:0.78rem; color:var(--gray); font-style:italic; margin-top:8px; }
+.price-quote {
+  margin-top:12px; background:linear-gradient(135deg,rgba(26,47,94,0.06),rgba(43,108,176,0.08));
+  border-left:3px solid var(--navy); border-radius:0 10px 10px 0;
+  padding:12px 14px; font-size:0.83rem; color:var(--navy); line-height:1.6;
+}
+.price-quote strong { color:var(--orange); }
+
+/* ===== WHY ===== */
+.why {
+  padding:90px 60px;
+  background:linear-gradient(135deg,var(--navy),#0f1e3d);
+}
+.why .section-title { color:white; }
+.why .section-sub { color:rgba(255,255,255,0.6); }
+.why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-top:40px; }
+.why-item {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px; padding:28px 22px; text-align:center; transition:background 0.3s;
+}
+.why-item:hover { background:rgba(255,255,255,0.1); }
+.why-emoji { font-size:2.2rem; display:block; margin-bottom:14px; }
+.why-item h4 { font-size:1rem; font-weight:800; color:white; margin-bottom:8px; }
+.why-item p { font-size:0.85rem; color:rgba(255,255,255,0.55); line-height:1.6; }
+@media(max-width:860px) { .why { padding:60px 20px; } }
+
+/* ===== ABONNEMENT ===== */
+.subscription { padding:90px 60px; background:var(--light); text-align:center; }
+@media(max-width:860px) { .subscription { padding:60px 20px; } }
+.subscription .section-label,.subscription .section-title,.subscription .section-sub {
+  margin-left:auto; margin-right:auto;
+}
+.title-sub { color:var(--orange); font-size:0.7em; display:block; letter-spacing:3px; }
+.plans-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px; margin-top:44px; align-items:stretch;
+}
+.plan-card {
+  background:white; border-radius:22px; padding:36px 28px; text-align:center;
+  border:2px solid var(--light-gray); position:relative; display:flex;
+  flex-direction:column; transition:transform 0.3s,box-shadow 0.3s;
+}
+.plan-card:hover { transform:translateY(-5px); box-shadow:0 20px 50px rgba(26,47,94,0.1); }
+.plan-card.featured {
+  background:linear-gradient(145deg,var(--navy),#1e3a6e);
+  border-color:var(--orange); transform:scale(1.03);
+  box-shadow:0 20px 55px rgba(26,47,94,0.28);
+}
+.plan-card.featured:hover { transform:scale(1.03) translateY(-5px); }
+.plan-popular {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  background:var(--orange); color:white; font-size:0.75rem; font-weight:800;
+  padding:5px 18px; border-radius:50px; white-space:nowrap;
+  box-shadow:0 4px 14px rgba(244,121,32,0.4);
+}
+.plan-badge {
+  display:inline-block; background:rgba(244,121,32,0.1); color:var(--orange);
+  font-size:0.7rem; font-weight:800; letter-spacing:1.5px; text-transform:uppercase;
+  padding:4px 14px; border-radius:50px; margin-bottom:14px;
+}
+.plan-badge.w { background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); }
+.plan-icon { font-size:2.5rem; margin-bottom:10px; }
+.plan-name { font-family:'Bebas Neue',sans-serif; font-size:1.9rem; letter-spacing:3px; color:var(--navy); margin-bottom:16px; }
+.featured .plan-name { color:white; }
+.plan-price { display:flex; align-items:flex-start; justify-content:center; gap:4px; margin-bottom:24px; }
+.plan-amount { font-family:'Bebas Neue',sans-serif; font-size:3.8rem; line-height:1; color:var(--orange); }
+.plan-curr { font-size:0.95rem; font-weight:800; color:var(--gray); padding-top:6px; }
+.plan-curr span { display:block; font-size:0.75rem; }
+.featured .plan-curr { color:rgba(255,255,255,0.7); }
+.plan-features { list-style:none; text-align:left; margin-bottom:28px; flex:1; display:flex; flex-direction:column; gap:8px; }
+.plan-features li { font-size:0.88rem; font-weight:600; color:var(--navy); padding:7px 11px; background:var(--light); border-radius:8px; }
+.featured .plan-features li { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.9); }
+.plan-features .off { opacity:0.4; }
+.plan-cta {
+  display:block; background:var(--orange); color:white; padding:13px 26px;
+  border-radius:50px; font-weight:800; font-size:0.92rem; text-decoration:none;
+  transition:transform 0.2s,box-shadow 0.2s; box-shadow:0 6px 18px rgba(244,121,32,0.35);
+}
+.plan-cta:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(244,121,32,0.5); }
+.plan-cta.w { background:white; color:var(--navy); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+.plan-cta.w:hover { box-shadow:0 10px 28px rgba(0,0,0,0.18); }
+.sub-note {
+  margin-top:44px; font-size:0.95rem; color:var(--gray);
+  background:white; border:2px dashed var(--orange); border-radius:14px;
+  padding:18px 28px; display:inline-block; max-width:600px;
+}
+.sub-note strong { color:var(--orange); }
+
+/* ===== CONTACT ===== */
+.contact {
+  padding:90px 60px; background:white;
+  display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+}
+@media(max-width:860px) { .contact { padding:60px 20px; grid-template-columns:1fr; gap:40px; } }
+.contact h2 {
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(2.2rem,4vw,3.2rem);
+  letter-spacing:2px; line-height:1; margin-bottom:16px;
+}
+.contact > div > p { color:var(--gray); line-height:1.7; margin-bottom:36px; }
+.cinfo { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+.cicon {
+  width:46px; height:46px; background:linear-gradient(135deg,var(--orange),#f9a04a);
+  border-radius:11px; display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+}
+.cinfo strong { display:block; font-weight:800; color:var(--navy); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; }
+.cinfo span { color:var(--gray); font-size:0.9rem; }
+.cform { background:var(--light); border-radius:22px; padding:38px 34px; }
+.cform h3 { font-family:'Bebas Neue',sans-serif; font-size:1.7rem; letter-spacing:2px; color:var(--navy); margin-bottom:24px; }
+.form-group { margin-bottom:18px; }
+.form-group label { display:block; font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--navy); margin-bottom:7px; }
+.form-group input,.form-group textarea,.form-group select {
+  width:100%; padding:12px 16px; background:white;
+  border:2px solid var(--light-gray); border-radius:11px;
+  font-family:'Nunito',sans-serif; font-size:0.92rem; color:var(--navy);
+  transition:border-color 0.2s; outline:none;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color:var(--orange); }
+.form-group textarea { resize:vertical; min-height:100px; }
+.btn-submit {
+  width:100%; background:var(--orange); color:white; border:none;
+  padding:15px; border-radius:50px; font-family:'Nunito',sans-serif;
+  font-size:0.95rem; font-weight:800; cursor:pointer;
+  box-shadow:0 8px 26px rgba(244,121,32,0.4); letter-spacing:0.5px;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.btn-submit:hover { transform:translateY(-2px); box-shadow:0 14px 36px rgba(244,121,32,0.5); }
+
+/* ===== FOOTER ===== */
+footer {
+  background:var(--navy); color:rgba(255,255,255,0.6);
+  padding:36px 60px; display:flex; align-items:center;
+  justify-content:space-between; flex-wrap:wrap; gap:14px;
+}
+footer .nav-logo { font-size:1.4rem; }
+footer p { font-size:0.82rem; }
+@media(max-width:860px) { footer { padding:28px 20px; flex-direction:column; text-align:center; } }
+
+/* ===== MODALES ===== */
+#modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(10,20,50,0.72); z-index:1000; backdrop-filter:blur(4px);
+}
+.modal-box {
+  display:none; position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%); z-index:1001;
+  width:min(680px,94vw); max-height:88vh; overflow-y:auto;
+  background:white; border-radius:22px; box-shadow:0 30px 80px rgba(0,0,0,0.3);
+}
+.modal-close {
+  position:sticky; top:14px; float:right; margin:14px 14px 0 0;
+  background:var(--light-gray); border:none; border-radius:50%;
+  width:34px; height:34px; font-size:1rem; cursor:pointer; z-index:2; line-height:34px;
+}
+.modal-body { padding:36px 36px 32px; clear:both; }
+@media(max-width:600px) { .modal-body { padding:24px 20px 20px; } }
+
+/* ===== DEVIS IA ===== */
+.devis-check {
+  display:flex; align-items:center; gap:8px;
+  background:var(--light); border:2px solid var(--light-gray); border-radius:10px;
+  padding:9px 13px; font-size:0.86rem; font-weight:700; color:var(--navy); cursor:pointer;
+  transition:border-color 0.2s;
+}
+.devis-check input { accent-color:var(--orange); }
+.devis-check:has(input:checked) { border-color:var(--orange); background:#fff8f4; }
+.devis-radio {
+  display:flex; align-items:center; gap:8px;
+  background:var(--light); border:2px solid var(--light-gray); border-radius:10px;
+  padding:9px 14px; font-size:0.86rem; font-weight:700; color:var(--navy); cursor:pointer;
+  transition:border-color 0.2s;
+}
+.devis-radio:has(input:checked) { border-color:var(--orange); }
+.devis-radio input { accent-color:var(--orange); }
+.devis-sep { font-size:0.75rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:1.5px; color:var(--gray); margin:18px 0 10px; }
+.devis-result-card { background:var(--light); border-radius:14px; padding:22px 24px; margin-bottom:14px; }
+.devis-result-card h4 { font-family:'Bebas Neue',sans-serif; letter-spacing:2px;
+  font-size:1.2rem; color:var(--navy); margin-bottom:12px; }
+.devis-line { display:flex; justify-content:space-between; align-items:center;
+  padding:8px 0; border-bottom:1px solid var(--light-gray); gap:10px; }
+.devis-line:last-child { border:none; }
+.devis-total {
+  background:linear-gradient(135deg,var(--orange),#f9a04a); color:white;
+  border-radius:12px; padding:15px 18px;
+  display:flex; justify-content:space-between; align-items:center; margin-top:14px;
+}
+.devis-total strong { font-size:1.3rem; }
+.devis-remark {
+  background:#f0f9ff; border-left:3px solid var(--blue);
+  border-radius:0 10px 10px 0; padding:12px 14px; margin-top:14px;
+  font-size:0.85rem; color:var(--navy); line-height:1.6;
+}
+@keyframes spin { to{ transform:rotate(360deg); } }
+.spinner { animation:spin 1.2s linear infinite; display:inline-block; font-size:2rem; }
+
+/* ===== FADE IN ===== */
+.fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.6s,transform 0.6s; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+
+/* ===== CORRECTION VISUELS LOGO + HOMME DE MÉNAGE ===== */
+.nav-city-logo{height:54px;width:auto;display:block;object-fit:contain;}
+.nav-worker{height:58px;width:auto;display:block;object-fit:contain;}
+.hero{gap:48px;justify-content:space-between;}
+.hero-visual{position:relative;z-index:2;flex:1;min-width:280px;display:flex;align-items:center;justify-content:center;}
+.hero-card-visual{position:relative;width:min(420px,100%);min-height:470px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:36px;box-shadow:0 28px 90px rgba(0,0,0,.28);overflow:hidden;backdrop-filter:blur(10px);}
+.hero-card-visual::before{content:'';position:absolute;inset:auto -30% -35% -30%;height:70%;background:radial-gradient(circle,rgba(244,121,32,.35),rgba(244,121,32,0) 70%);}
+.hero-card-visual .hero-logo-img{position:absolute;top:24px;left:24px;right:24px;width:calc(100% - 48px);max-height:112px;object-fit:contain;background:white;border-radius:22px;padding:10px;box-shadow:0 12px 35px rgba(0,0,0,.18);}
+.hero-card-visual .hero-agent-img{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);height:380px;width:auto;max-width:92%;object-fit:contain;filter:drop-shadow(0 22px 35px rgba(0,0,0,.35));}
+@media(max-width:980px){.hero{flex-direction:column;align-items:flex-start}.hero-visual{width:100%;}.hero-card-visual{min-height:390px;width:min(360px,100%);}.hero-card-visual .hero-agent-img{height:300px}.hero-card-visual .hero-logo-img{max-height:92px}.nav-city-logo{height:42px}.nav-worker{height:46px}}
+@media(max-width:520px){.nav-worker{display:none}.hero-card-visual{min-height:340px}.hero-card-visual .hero-agent-img{height:260px}.hero-card-visual .hero-logo-img{top:18px;left:18px;right:18px;width:calc(100% - 36px);}}
+
+
+.whatsapp-float{position:fixed;right:22px;bottom:22px;z-index:2000;background:#25D366;color:white;text-decoration:none;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.75rem;box-shadow:0 14px 35px rgba(0,0,0,.25);font-weight:900;transition:transform .2s ease}.whatsapp-float:hover{transform:translateY(-3px)}@media(max-width:520px){.whatsapp-float{right:16px;bottom:16px;width:56px;height:56px}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="images/logo-clean-cite.png" class="nav-city-logo" alt="Logo Clean-Cité">
+    <div class="nav-logo">CLEAN-<span>CITÉ</span></div>
+    <img src="images/agent-nettoyage.png" class="nav-worker" alt="Agent de nettoyage Clean-Cité">
+  </a>
+  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-right" id="nav-right">
+    <div class="dd-wrap">
+      <button class="dd-btn" onclick="toggleDd(event)">Services ▾</button>
+      <div class="dd-menu" id="dd-menu">
+        <div class="dd-col">
+          <div class="dd-group">🧹 Nettoyage</div>
+          <a href="#" onclick="svcClick('chantier-cours')">Chantier en cours</a>
+          <a href="#" onclick="svcClick('chantier-fin')">Fin de chantier</a>
+          <a href="#" onclick="svcClick('bureaux')">Nettoyage de bureaux</a>
+          <a href="#" onclick="svcClick('poubelles')">Sortie de poubelles</a>
+          <a href="#" onclick="svcClick('tapis')">Tapis &amp; canapés</a>
+          <a href="#" onclick="svcClick('terrasse')">Terrasse</a>
+          <a href="#" onclick="svcClick('vitrines')">Vitrines</a>
+        </div>
+        <div class="dd-col">
+          <div class="dd-group">🏗️ Gestion</div>
+          <a href="#" onclick="svcClick('cles')">Gestion des clés</a>
+          <div class="dd-group" style="margin-top:12px;">📋 Offres</div>
+          <a href="#abonnement" onclick="closeDd()">Abonnements syndic</a>
+          <a href="avant-apres.html" onclick="closeDd()">Avant / Après</a>
+          <a href="planning.html" onclick="closeDd();closeMobile()">Gestion de planning</a>
+          <a href="#" class="dd-devis" onclick="closeDd();openDevis();return false;">Pré-devis</a>
+        </div>
+      </div>
+    </div>
+    <a href="#why" onclick="closeMobile()">Pourquoi nous</a>
+    <a href="#abonnement" onclick="closeMobile()">Abonnements</a>
+    <a href="avant-apres.html" onclick="closeMobile()">Avant / Après</a>
+    <a href="planning.html" onclick="closeMobile()">Planning</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="#" class="nav-cta" onclick="openDevis();return false;">Pré-devis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-content">
+    <div class="hero-badge">✦ Nettoyage Professionnel — Île-de-France</div>
+    <h1>CLEAN-<span>CITÉ</span></h1>
+    <p class="hero-sub">Des espaces propres, des environnements sains. Votre partenaire de confiance pour l'entretien et le nettoyage professionnel à Bobigny et en région parisienne.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Demander un devis</a>
+      <a href="tel:0766536154" class="btn-outline">07 66 53 61 54</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">9</span><span class="stat-label">Services</span></div>
+      <div><span class="stat-num">100%</span><span class="stat-label">Satisfaction</span></div>
+      <div><span class="stat-num">Pro</span><span class="stat-label">Équipement</span></div>
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-card-visual">
+      <img src="images/logo-clean-cite.png" class="hero-logo-img" alt="Logo Clean-Cité">
+      <img src="images/agent-nettoyage.png" class="hero-agent-img" alt="Homme de ménage Clean-Cité">
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <span class="section-label">Ce que nous faisons</span>
+  <h2 class="section-title">NOS SERVICES</h2>
+  <p class="section-sub">Deux pôles d'expertise complémentaires pour répondre à tous vos besoins.</p>
+
+  <!-- Catégorie 1 -->
+  <div class="cat-header fade-in">
+    <div class="cat-pill">01</div>
+    <div><h3 class="cat-title">Nettoyage Professionnel</h3><p class="cat-desc">Interventions sur tous types de surfaces et d'espaces.</p></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in" onclick="openService('chantier-cours')">
+      <div class="svc-icon">🏗️</div>
+      <h3>Nettoyage de chantier en cours</h3>
+      <p>Entretien et nettoyage pendant la durée du chantier : déblaiement, dépoussiérage, évacuation des déchets.</p>
+      <div class="price-badge">25 € / heure</div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+    <div class="service-card fade-in" onclick="openService('chantier-fin')">
+      <div class="svc-icon">✅</div>
+      <h3>Nettoyage fin de chantier</h3>
+      <p>Remise en propreté complète après travaux : sols, vitres, surfaces et évacuation des déchets.</p>
+      <div class="price-list">
+        <div class="price-row"><span class="price-label">⬜ Léger</span><span class="price-amount">5 € / m²</span></div>
+        <div class="price-row"><span class="price-label">🟧 Standard</span><span class="price-amount">8 € / m²</span></div>
+        <div class="price-row"><span class="price-label">🟥 Très sale</span><span class="price-amount">12 € / m²</span></div>
+      </div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+    <div class="service-card fade-in" onclick="openService('bureaux')">
+      <div class="svc-icon">🏢</div>
+      <h3>Nettoyage de bureaux</h3>
+      <p>Entretien régulier de vos espaces de travail pour un environnement sain et agréable.</p>
+      <div class="price-list">
+        <div class="price-row"><span class="price-label">🟦 Standards</span><span class="price-amount">3 € / m²</span></div>
+        <div class="price-row"><span class="price-label">🟥 Très sales</span><span class="price-amount">5 € / m²</span></div>
+        <div class="price-row"><span class="price-label">🧪 Désinfection</span><span class="price-amount">+ 20 %</span></div>
+        <div class="price-row"><span class="price-label">🪟 Vitres</span><span class="price-amount">+ 2 € / m²</span></div>
+      </div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+    <div class="service-card fade-in" onclick="openService('poubelles')">
+      <div class="svc-icon">🗑️</div>
+      <h3>Sortie de poubelles</h3>
+      <p>Prise en charge de la collecte et sortie de vos conteneurs aux jours de ramassage.</p>
+      <div class="price-list">
+        <div class="price-row"><span class="price-label">🗑️ 1 bac</span><span class="price-amount">10 €</span></div>
+        <div class="price-row"><span class="price-label">🗑️ 2 – 4 bacs</span><span class="price-amount">25 €</span></div>
+        <div class="price-row"><span class="price-label">🗑️ 5 – 10 bacs</span><span class="price-amount">50 €</span></div>
+        <div class="price-row"><span class="price-label">🧹 Nettoyage bacs</span><span class="price-amount">+ 30 €</span></div>
+      </div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+    <div class="service-card fade-in" onclick="openService('tapis')">
+      <div class="svc-icon">🧹</div>
+      <h3>Tapis &amp; canapés</h3>
+      <p>Nettoyage en profondeur de vos textiles avec équipements professionnels.</p>
+      <div class="price-list">
+        <div class="price-row"><span class="price-label">🟫 Petit tapis</span><span class="price-amount">30 – 60 €</span></div>
+        <div class="price-row"><span class="price-label">🟫 Grand tapis</span><span class="price-amount">80 – 150 €</span></div>
+        <div class="price-row"><span class="price-label">🛋️ Canapé 2pl</span><span class="price-amount">70 – 120 €</span></div>
+        <div class="price-row"><span class="price-label">🛋️ Canapé 3pl</span><span class="price-amount">120 – 180 €</span></div>
+        <div class="price-row"><span class="price-label">🛋️ Angle</span><span class="price-amount">180 – 350 €</span></div>
+        <div class="price-row"><span class="price-label">🛏️ Matelas</span><span class="price-amount">50 – 120 €</span></div>
+      </div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+    <div class="service-card fade-in" onclick="openService('terrasse')">
+      <div class="svc-icon">🌿</div>
+      <h3>Nettoyage de terrasse</h3>
+      <p>Démoussage, nettoyage haute pression et entretien de vos espaces extérieurs.</p>
+      <div class="price-list">
+        <div class="price-row"><span class="price-label">🟦 Petite</span><span class="price-amount">99 €</span></div>
+        <div class="price-row"><span class="price-label">🟧 Moyenne</span><span class="price-amount">199 €</span></div>
+        <div class="price-row"><span class="price-label">🟥 Grande</span><span class="price-amount">350 €+</span></div>
+      </div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+    <div class="service-card fade-in" onclick="openService('vitrines')">
+      <div class="svc-icon">🪟</div>
+      <h3>Nettoyage de vitrines</h3>
+      <p>Nettoyage intérieur et extérieur de vos vitrines pour une image impeccable.</p>
+      <div class="price-list">
+        <div class="price-row"><span class="price-label">✨ Classique</span><span class="price-amount">2 – 5 € / m²</span></div>
+        <div class="price-row"><span class="price-label">🟥 Très sale</span><span class="price-amount">5 – 8 € / m²</span></div>
+        <div class="price-row"><span class="price-label">📅 Abonnement</span><span class="price-amount">dès 60 € / mois</span></div>
+      </div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+  </div>
+
+  <!-- Catégorie 2 -->
+  <div class="cat-header cat2 fade-in" style="margin-top:20px;">
+    <div class="cat-pill p2">02</div>
+    <div><h3 class="cat-title">Gestion de Chantier</h3><p class="cat-desc">Accompagnement complet pour la coordination de vos chantiers.</p></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card blue-card fade-in" onclick="openService('cles')">
+      <div class="svc-icon blue">🗝️</div>
+      <h3>Gestion des clés</h3>
+      <p>Prise en charge complète de l'accès et coordination de votre chantier : ouverture, fermeture, réception des matériaux, remise des clés.</p>
+      <div class="price-quote" style="margin-top:14px;">Tarif sur devis selon durée et fréquence.</div>
+      <span class="svc-hint">🔍 Voir le détail</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <span class="section-label">Nos engagements</span>
+  <h2 class="section-title">POURQUOI NOUS CHOISIR ?</h2>
+  <p class="section-sub">Nous mettons tout en œuvre pour vous offrir un service irréprochable à chaque intervention.</p>
+  <div class="why-grid">
+    <div class="why-item fade-in"><span class="why-emoji">⚡</span><h4>Réactivité</h4><p>Intervention rapide selon vos disponibilités, même en urgence.</p></div>
+    <div class="why-item fade-in"><span class="why-emoji">🎯</span><h4>Rigueur</h4><p>Chaque prestation est réalisée avec méthode et attention aux détails.</p></div>
+    <div class="why-item fade-in"><span class="why-emoji">💰</span><h4>Tarifs compétitifs</h4><p>Des prix transparents et honnêtes, sans mauvaise surprise.</p></div>
+    <div class="why-item fade-in"><span class="why-emoji">🌿</span><h4>Produits adaptés</h4><p>Utilisation de produits professionnels adaptés à chaque surface.</p></div>
+  </div>
+</section>
+
+<!-- ABONNEMENT -->
+<section class="subscription" id="abonnement">
+  <span class="section-label">Offre exclusive syndics &amp; bailleurs</span>
+  <h2 class="section-title">PLANS D'ABONNEMENT<br><span class="title-sub">Sortie de Poubelles</span></h2>
+  <p class="section-sub">Des forfaits clairs et sans surprise, adaptés à la taille de votre résidence.</p>
+  <div class="plans-grid">
+    <div class="plan-card fade-in">
+      <div class="plan-badge">Petite résidence</div>
+      <div class="plan-icon">🏠</div>
+      <h3 class="plan-name">STARTER</h3>
+      <div class="plan-price"><span class="plan-amount">59</span><span class="plan-curr">€<span>/mois</span></span></div>
+      <ul class="plan-features">
+        <li>✅ Jusqu'à 4 bacs</li>
+        <li>✅ 1 passage / semaine</li>
+        <li>✅ Sortie &amp; rentrée des bacs</li>
+        <li>✅ Rapport mensuel</li>
+        <li class="off">❌ Nettoyage des bacs</li>
+        <li class="off">❌ Passages supplémentaires</li>
+      </ul>
+      <a href="#contact" class="plan-cta">Souscrire</a>
+    </div>
+    <div class="plan-card featured fade-in">
+      <div class="plan-popular">⭐ Le plus populaire</div>
+      <div class="plan-badge w">Résidence moyenne</div>
+      <div class="plan-icon">🏢</div>
+      <h3 class="plan-name">CONFORT</h3>
+      <div class="plan-price"><span class="plan-amount">119</span><span class="plan-curr">€<span>/mois</span></span></div>
+      <ul class="plan-features">
+        <li>✅ Jusqu'à 10 bacs</li>
+        <li>✅ 2 passages / semaine</li>
+        <li>✅ Sortie &amp; rentrée des bacs</li>
+        <li>✅ Nettoyage des bacs 1×/mois</li>
+        <li>✅ Rapport mensuel</li>
+        <li class="off">❌ Passages supplémentaires</li>
+      </ul>
+      <a href="#contact" class="plan-cta w">Souscrire</a>
+    </div>
+    <div class="plan-card fade-in">
+      <div class="plan-badge">Grande résidence</div>
+      <div class="plan-icon">🏙️</div>
+      <h3 class="plan-name">PREMIUM</h3>
+      <div class="plan-price"><span class="plan-amount">199</span><span class="plan-curr">€<span>/mois</span></span></div>
+      <ul class="plan-features">
+        <li>✅ Bacs illimités</li>
+        <li>✅ Passages illimités</li>
+        <li>✅ Sortie &amp; rentrée des bacs</li>
+        <li>✅ Nettoyage des bacs 2×/mois</li>
+        <li>✅ Rapport mensuel détaillé</li>
+        <li>✅ Urgence sous 24h</li>
+      </ul>
+      <a href="#contact" class="plan-cta">Souscrire</a>
+    </div>
+  </div>
+  <p class="sub-note">💬 Vous gérez plusieurs immeubles ? Contactez-nous pour un <strong>tarif groupé syndic</strong>. Devis gratuit sous 24h.</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <span class="section-label">Parlons de votre projet</span>
+    <h2>CONTACTEZ-<br>NOUS</h2>
+    <p>Besoin d'un devis ou d'une information ? Nous répondons dans les plus brefs délais.</p>
+    <div class="cinfo"><div class="cicon">📞</div><div><strong>Téléphone</strong><span>07 66 53 61 54</span></div></div>
+    <div class="cinfo"><div class="cicon">✉️</div><div><strong>E-mail</strong><span>cleannette7@gmail.com</span></div></div>
+    <div class="cinfo"><div class="cicon">📍</div><div><strong>Adresse</strong><span>149 rue de Paris, Bobigny 93000</span></div></div>
+    <div class="cinfo"><div class="cicon">👤</div><div><strong>Contact</strong><span>Traore Fousseyni</span></div></div>
+  </div>
+  <div class="cform">
+    <h3>DEMANDE DE DEVIS</h3>
+    <div class="form-group"><label>Votre nom</label><input type="text" placeholder="Jean Dupont"></div>
+    <div class="form-group"><label>Téléphone</label><input type="tel" placeholder="06 00 00 00 00"></div>
+    <div class="form-group">
+      <label>Type de service</label>
+      <select>
+        <option value="">Sélectionnez un service…</option>
+        <option>Chantier en cours</option>
+        <option>Fin de chantier</option>
+        <option>Nettoyage de bureaux</option>
+        <option>Sortie de poubelles</option>
+        <option>Tapis &amp; canapés</option>
+        <option>Terrasse</option>
+        <option>Vitrines</option>
+        <option>Gestion des clés</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Message</label><textarea placeholder="Décrivez votre besoin…"></textarea></div>
+    <button class="btn-submit" onclick="envoyerContact();return false;">ENVOYER MA DEMANDE →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="nav-logo">CLEAN-<span>CITÉ</span></div>
+  <p>© 2025 Clean-Cité · Traore Fousseyni · 149 rue de Paris, Bobigny 93000</p>
+  <p>cleannette7@gmail.com · 07 66 53 61 54</p>
+</footer>
+
+<!-- OVERLAY -->
+<div id="modal-overlay" onclick="closeAll()"></div>
+
+<!-- MODALE SERVICE -->
+<div class="modal-box" id="svc-modal">
+  <button class="modal-close" onclick="closeAll()">✕</button>
+  <div class="modal-body" id="svc-modal-body"></div>
+</div>
+
+<!-- MODALE DEVIS IA -->
+<div class="modal-box" id="devis-modal">
+  <button class="modal-close" onclick="closeAll()">✕</button>
+  <div class="modal-body">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+      <div style="width:50px;height:50px;background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">🤖</div>
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--navy);line-height:1;">PRÉ-DEVIS AUTOMATIQUE</h2>
+        <p style="font-size:0.82rem;color:var(--gray);">Remplissez le formulaire et obtenez une estimation indicative en quelques secondes.</p>
+      </div>
+    </div>
+    <hr style="margin:18px 0;border:none;border-top:2px solid var(--light-gray);">
+
+    <div id="devis-step1">
+      <p class="devis-sep">1. Quel(s) service(s) ?</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;">
+        <label class="devis-check"><input type="checkbox" value="Chantier en cours"> Chantier en cours</label>
+        <label class="devis-check"><input type="checkbox" value="Fin de chantier"> Fin de chantier</label>
+        <label class="devis-check"><input type="checkbox" value="Bureaux"> Nettoyage bureaux</label>
+        <label class="devis-check"><input type="checkbox" value="Poubelles"> Sortie poubelles</label>
+        <label class="devis-check"><input type="checkbox" value="Tapis et canapés"> Tapis &amp; canapés</label>
+        <label class="devis-check"><input type="checkbox" value="Terrasse"> Terrasse</label>
+        <label class="devis-check"><input type="checkbox" value="Vitrines"> Vitrines</label>
+        <label class="devis-check"><input type="checkbox" value="Gestion des clés"> Gestion des clés</label>
+      </div>
+      <p class="devis-sep">2. Superficie (m²) — si applicable</p>
+      <input id="d-surface" type="number" min="0" placeholder="ex : 80" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;margin-bottom:16px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#f47920'" onblur="this.style.borderColor='#e5e7eb'">
+      <p class="devis-sep">3. État du lieu</p>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
+        <label class="devis-radio"><input type="radio" name="etat" value="léger"> ⬜ Léger</label>
+        <label class="devis-radio"><input type="radio" name="etat" value="standard" checked> 🟧 Standard</label>
+        <label class="devis-radio"><input type="radio" name="etat" value="très sale"> 🟥 Très sale</label>
+      </div>
+      <p class="devis-sep">4. Fréquence</p>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
+        <label class="devis-radio"><input type="radio" name="freq" value="unique" checked> Prestation unique</label>
+        <label class="devis-radio"><input type="radio" name="freq" value="mensuel"> Mensuel</label>
+        <label class="devis-radio"><input type="radio" name="freq" value="hebdomadaire"> Hebdomadaire</label>
+      </div>
+      <p class="devis-sep">5. Suppléments</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+        <label class="devis-check"><input type="checkbox" value="désinfection"> 🧪 Désinfection</label>
+        <label class="devis-check"><input type="checkbox" value="taches difficiles"> ⚠️ Taches difficiles</label>
+        <label class="devis-check"><input type="checkbox" value="poils d'animaux"> 🐾 Poils d'animaux</label>
+        <label class="devis-check"><input type="checkbox" value="déplacement"> 🚗 Déplacement</label>
+      </div>
+      <p class="devis-sep">6. Description — optionnel</p>
+      <textarea id="d-desc" placeholder="Ex : bureau de 80m² à Bobigny, 2 fois par mois, vitres incluses…" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.9rem;min-height:80px;resize:vertical;outline:none;margin-bottom:20px;transition:border-color 0.2s;" onfocus="this.style.borderColor='#f47920'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+      <button onclick="genererDevis()" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--blue));color:white;border:none;padding:15px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;letter-spacing:0.5px;">Calculer mon pré-devis</button>
+    </div>
+
+    <div id="devis-step2" style="display:none;">
+      <div id="devis-loading" style="text-align:center;padding:40px 0;">
+        <span class="spinner">⚙️</span>
+        <p style="margin-top:14px;font-weight:700;color:var(--navy);">Calcul de votre estimation…</p>
+      </div>
+      <div id="devis-result"></div>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+        <button onclick="resetDevis()" style="flex:1;background:var(--light);border:2px solid var(--light-gray);color:var(--navy);padding:12px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;min-width:100px;">← Modifier</button>
+        <button onclick="envoyerDevis()" style="flex:2;background:var(--orange);color:white;border:none;padding:12px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;min-width:160px;">📧 Envoyer par email</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DONNÉES SERVICES =====
+const SVC = {
+  'chantier-cours':{icon:'🏗️',title:'Chantier en cours',desc:"Entretien et nettoyage pendant la durée du chantier : déblaiement, dépoussiérage, évacuation des déchets au fil de l'avancement.",tarifs:[{l:'Tarif horaire',v:'25 € / heure'}],extras:[],note:'Tarif dégressif à partir de 40h/mois. Devis mensuel sur demande.'},
+  'chantier-fin':{icon:'✅',title:'Fin de chantier',desc:'Remise en propreté complète après travaux : nettoyage des sols, vitres, surfaces et évacuation des déchets avant livraison.',tarifs:[{l:'Léger',v:'5 € / m²'},{l:'Standard',v:'8 € / m²'},{l:'Très sale',v:'12 € / m²'}],extras:[],note:''},
+  'bureaux':{icon:'🏢',title:'Nettoyage de bureaux',desc:'Entretien régulier de vos espaces de travail pour un environnement sain, propre et agréable.',tarifs:[{l:'Standards',v:'3 € / m²'},{l:'Très sales',v:'5 € / m²'}],extras:[{l:'Désinfection',v:'+ 20 %'},{l:'Vitres',v:'+ 2 € / m²'}],note:''},
+  'poubelles':{icon:'🗑️',title:'Sortie de poubelles',desc:'Prise en charge de la collecte et sortie de vos conteneurs aux jours de ramassage.',tarifs:[{l:'1 bac',v:'10 €'},{l:'2 – 4 bacs',v:'25 €'},{l:'5 – 10 bacs',v:'50 €'}],extras:[{l:'Nettoyage des bacs',v:'+ 30 €'}],note:'Abonnement mensuel disponible pour les syndics.'},
+  'tapis':{icon:'🧹',title:'Tapis & canapés',desc:'Nettoyage en profondeur de vos textiles avec équipements professionnels.',tarifs:[{l:'Petit tapis',v:'30–60 €'},{l:'Grand tapis',v:'80–150 €'},{l:'Canapé 2 places',v:'70–120 €'},{l:'Canapé 3 places',v:'120–180 €'},{l:"Canapé d'angle",v:'180–350 €'},{l:'Matelas',v:'50–120 €'}],extras:[{l:'Taches difficiles',v:'+ 20 €'},{l:"Poils d'animaux",v:'+ 30 €'},{l:'Désinfection vapeur',v:'+ 40 €'},{l:'Déplacement',v:'+ 20 à 50 €'}],note:''},
+  'terrasse':{icon:'🌿',title:'Nettoyage de terrasse',desc:'Démoussage, nettoyage haute pression et entretien de vos terrasses et espaces extérieurs.',tarifs:[{l:'Petite terrasse',v:'99 €'},{l:'Terrasse moyenne',v:'199 €'},{l:'Grande terrasse',v:'350 €+'}],extras:[{l:'Mousse importante',v:'+ 50 €'},{l:'Mobilier à déplacer',v:'+ 30 €'},{l:'Escaliers extérieurs',v:'+ 40 €'}],note:''},
+  'vitrines':{icon:'🪟',title:'Nettoyage de vitrines',desc:'Nettoyage intérieur et extérieur de vos vitrines et baies vitrées.',tarifs:[{l:'Classique',v:'2–5 € / m²'},{l:'Très sale / 1ère interv.',v:'5–8 € / m²'},{l:'Accès difficile / hauteur',v:'Sur devis'}],extras:[{l:'Abonnement mensuel',v:'dès 60 € / mois'}],note:'Nettoyage vitrine intérieur + extérieur à partir de 30 €. Devis personnalisé sur demande.'},
+  'cles':{icon:'🗝️',title:'Gestion des clés',desc:"Prise en charge complète de l'accès et coordination de votre chantier au quotidien.",tarifs:[{l:'Ouverture & fermeture',v:'Inclus'},{l:'Réception des matériaux',v:'Inclus'},{l:'Remise & récupération clés',v:'Inclus'},{l:'Coordination intervenants',v:'Inclus'}],extras:[],note:'Tarif sur devis selon durée et fréquence.'}
+};
+let lastEstimateMessage = '';
+const $ = (id) => document.getElementById(id);
+function toggleMobile(){ const nav=$('nav-right'); if(nav) nav.classList.toggle('open'); }
+function closeMobile(){ const nav=$('nav-right'); if(nav) nav.classList.remove('open'); closeDd(); }
+function toggleDd(e){ if(e){e.preventDefault(); e.stopPropagation();} const menu=$('dd-menu'); if(menu) menu.classList.toggle('open'); }
+function closeDd(){ const menu=$('dd-menu'); if(menu) menu.classList.remove('open'); }
+document.addEventListener('click', function(e){ if(!e.target.closest('.dd-wrap')) closeDd(); });
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(); });
+function showOverlay(){ const o=$('modal-overlay'); if(o) o.style.display='block'; document.body.style.overflow='hidden'; }
+function closeAll(){ ['modal-overlay','svc-modal','devis-modal'].forEach(id=>{ const el=$(id); if(el) el.style.display='none'; }); document.body.style.overflow=''; }
+function svcClick(id){ if(window.event) window.event.preventDefault(); closeDd(); closeMobile(); openService(id); return false; }
+function openService(id){
+  const s = SVC[id]; if(!s) return;
+  let html = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;"><div style="width:52px;height:52px;background:linear-gradient(135deg,#f47920,#f9a04a);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">${s.icon}</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:2px;color:#1a2f5e;line-height:1;">${s.title}</h2></div><p style="color:#6b7280;line-height:1.7;margin-bottom:20px;">${s.desc}</p>`;
+  html += `<p style="font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#f47920;margin-bottom:10px;">Tarifs indicatifs</p><div class="devis-result-card">`;
+  s.tarifs.forEach(t=>{ html += `<div class="devis-line"><span>${t.l}</span><strong style="color:var(--orange);">${t.v}</strong></div>`; });
+  html += `</div>`;
+  if(s.extras.length){ html += `<p style="font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#6b7280;margin:16px 0 10px;">Suppléments</p><div class="devis-result-card">`; s.extras.forEach(t=>{ html += `<div class="devis-line"><span>${t.l}</span><strong style="color:var(--orange);">${t.v}</strong></div>`; }); html += `</div>`; }
+  if(s.note) html += `<div class="devis-remark">💡 ${s.note}</div>`;
+  html += `<button onclick="closeAll();openDevis();" style="width:100%;background:linear-gradient(135deg,#1a2f5e,#2b6cb0);color:white;border:none;padding:14px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;margin-top:10px;">Obtenir un pré-devis</button>`;
+  const body=$('svc-modal-body'); if(body) body.innerHTML = html;
+  showOverlay(); const modal=$('svc-modal'); if(modal) modal.style.display='block';
+}
+function openDevis(){ closeDd(); closeMobile(); showOverlay(); const modal=$('devis-modal'); if(modal) modal.style.display='block'; resetDevis(false); }
+function resetDevis(clear=true){
+  if($('devis-step1')) $('devis-step1').style.display='block';
+  if($('devis-step2')) $('devis-step2').style.display='none';
+  if($('devis-result')) $('devis-result').innerHTML='';
+  if($('devis-loading')) { $('devis-loading').style.display='block'; $('devis-loading').innerHTML='<span class="spinner">⚙️</span><p style="margin-top:14px;font-weight:700;color:var(--navy);">Calcul de votre estimation…</p>'; }
+  if(clear) lastEstimateMessage='';
+}
+function genererDevis(){
+  const allChecked = [...document.querySelectorAll('#devis-step1 input[type=checkbox]:checked')].map(i=>i.value);
+  const supplementNames = ['désinfection','taches difficiles',"poils d'animaux",'déplacement'];
+  const services = allChecked.filter(v=>!supplementNames.includes(v));
+  const supps = allChecked.filter(v=>supplementNames.includes(v));
+  if(!services.length){ alert('Veuillez sélectionner au moins un service.'); return; }
+  const surface = Math.max(0, Number($('d-surface')?.value || 0));
+  const etat = document.querySelector('input[name="etat"]:checked')?.value || 'standard';
+  const freq = document.querySelector('input[name="freq"]:checked')?.value || 'unique';
+  const desc = $('d-desc')?.value.trim() || '';
+  const etatCoef = etat === 'léger' ? 0.9 : (etat === 'très sale' ? 1.35 : 1);
+  const freqCoef = freq === 'hebdomadaire' ? 0.82 : (freq === 'mensuel' ? 0.88 : 1);
+  const map = {'Chantier en cours':{base:4.5,fixed:150,detail:'Nettoyage pendant travaux'},'Fin de chantier':{base:6.5,fixed:180,detail:'Remise en propreté après travaux'},'Bureaux':{base:3,fixed:150,detail:'Entretien bureaux et locaux'},'Poubelles':{base:0,fixed:90,detail:'Sortie et gestion des bacs'},'Tapis et canapés':{base:0,fixed:120,detail:'Nettoyage textiles'},'Terrasse':{base:0,fixed:199,detail:'Nettoyage terrasse / extérieur'},'Vitrines':{base:2.5,fixed:60,detail:'Vitrerie accessible'},'Gestion des clés':{base:0,fixed:80,detail:'Ouverture, fermeture, coordination'}};
+  let total = 0;
+  const lignes = services.map(name=>{ const d = map[name] || {base:3,fixed:150,detail:'Prestation de nettoyage'}; let amount = d.base && surface ? surface*d.base : d.fixed; amount = amount*etatCoef*freqCoef; amount = Math.max(amount, d.fixed || 60); total += amount; return {service:name, detail:d.detail + (surface && d.base ? ` — ${surface} m²` : ''), montant:Math.round(amount)}; });
+  supps.forEach(s=>{ let amount = s === 'désinfection' ? total*0.20 : (s === 'taches difficiles' ? 30 : (s === "poils d'animaux" ? 30 : 35)); total += amount; lignes.push({service:s.charAt(0).toUpperCase()+s.slice(1), detail:'Option complémentaire', montant:Math.round(amount)}); });
+  total = Math.max(total, 150); const min=Math.round(total); const max=Math.round(total*1.2); const freqText = freq === 'hebdomadaire' ? 'hebdomadaire' : (freq === 'mensuel' ? 'mensuelle' : 'unique');
+  let html = `<div class="devis-result-card"><h4>📋 VOTRE ESTIMATION</h4>`; lignes.forEach(l=>{ html += `<div class="devis-line"><span style="font-weight:600;color:#374151;font-size:0.88rem;">${l.service}<br><small style="color:#9ca3af;font-weight:400;">${l.detail}</small></span><span style="font-weight:800;color:#f47920;">${l.montant} €</span></div>`; });
+  html += `</div><div class="devis-total"><div><span style="font-size:0.78rem;opacity:0.85;">ESTIMATION INDICATIVE</span><br><strong>${min} € – ${max} €</strong></div><span style="font-size:0.78rem;opacity:0.8;">Valable 30 jours</span></div><div class="devis-remark">💡 Tarif indicatif à confirmer après échange selon l’accès, l’état réel du site, les horaires et les besoins exacts.</div>`;
+  lastEstimateMessage = `Bonjour Clean-Cité, je souhaite un devis. Prestation : ${services.join(', ')}. Surface : ${surface || 'non précisée'} m². État : ${etat}. Fréquence : ${freqText}. Options : ${supps.join(', ') || 'aucune'}. Estimation du simulateur : ${min} € - ${max} €. ${desc ? 'Informations : '+desc : ''}`;
+  if($('devis-step1')) $('devis-step1').style.display='none'; if($('devis-step2')) $('devis-step2').style.display='block'; if($('devis-loading')) $('devis-loading').style.display='none'; if($('devis-result')) $('devis-result').innerHTML=html;
+}
+function envoyerDevis(){ const msg = lastEstimateMessage || 'Bonjour Clean-Cité, je souhaite recevoir un devis pour une prestation de nettoyage.'; window.location.href='mailto:cleannette7@gmail.com?subject=Demande de devis Clean-Cité&body='+encodeURIComponent(msg); }
+function envoyerContact(){ const form=document.querySelector('.cform'); if(!form) return; const inputs=form.querySelectorAll('input, select, textarea'); const nom=inputs[0]?.value.trim()||'Non renseigné'; const tel=inputs[1]?.value.trim()||'Non renseigné'; const service=inputs[2]?.value||'Non renseigné'; const message=inputs[3]?.value.trim()||'Non renseigné'; const body=`Bonjour Clean-Cité,
+
+Je souhaite être recontacté pour une demande de devis.
+
+Nom / Société : ${nom}
+Téléphone : ${tel}
+Service : ${service}
+Message : ${message}`; window.location.href='mailto:cleannette7@gmail.com?subject=Demande de devis Clean-Cité&body='+encodeURIComponent(body); }
+if('IntersectionObserver' in window){ const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1}); document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el)); } else { document.querySelectorAll('.fade-in').forEach(el=>el.classList.add('visible')); }
+
+</script>
+<a class="whatsapp-float" href="https://wa.me/33766536154?text=Bonjour%20Clean-Cit%C3%A9%2C%20je%20souhaite%20un%20devis%20pour%20une%20prestation%20de%20nettoyage." target="_blank" aria-label="Contacter Clean-Cité sur WhatsApp">☎</a>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', function(user) {
+    if (!user) {
+      window.netlifyIdentity.on('login', function() { document.location.href = '/admin/'; });
+    }
+  });
+}
+</script>
+</body>
+</html>

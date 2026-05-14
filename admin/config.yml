@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: "A_REMPLACER_PAR_VOTRE_CLOUD_NAME"
+    api_key: "A_REMPLACER_PAR_VOTRE_API_KEY"
+
+site_url: "https://VOTRE-SITE-NETLIFY.netlify.app"
+display_url: "https://VOTRE-SITE-NETLIFY.netlify.app"
+logo_url: "/images/logo-clean-cite.png"
+locale: "fr"
+
+collections:
+  - name: "gestion_site"
+    label: "Gestion du site"
+    files:
+      - name: "interventions_avant_apres"
+        label: "Avant / Après de mes interventions"
+        file: "data/interventions.json"
+        format: "json"
+        fields:
+          - label: "Interventions"
+            name: "interventions"
+            widget: "list"
+            summary: "{{fields.titre}} — {{fields.ville}}"
+            minimize_collapsed: true
+            fields:
+              - { label: "Publier sur le site", name: "publier", widget: "boolean", default: true }
+              - { label: "Titre", name: "titre", widget: "string", hint: "Exemple : Nettoyage fin de chantier à Bobigny" }
+              - label: "Type de prestation"
+                name: "type_prestation"
+                widget: "select"
+                options:
+                  - "Fin de chantier"
+                  - "Parties communes"
+                  - "Remise en état"
+                  - "Vitrerie"
+                  - "Bureaux & locaux"
+                  - "Terrasses & extérieurs"
+                  - "Autre"
+              - { label: "Ville / secteur", name: "ville", widget: "string", required: false, hint: "Exemple : Bobigny, Paris, Saint-Denis" }
+              - { label: "Date", name: "date", widget: "datetime", required: false, date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Description courte", name: "description", widget: "text", required: false, hint: "Expliquez rapidement ce qui a été nettoyé." }
+              - { label: "Photo avant", name: "photo_avant", widget: "image", required: false, media_library: { config: { multiple: false } } }
+              - { label: "Photo après", name: "photo_apres", widget: "image", required: false, media_library: { config: { multiple: false } } }

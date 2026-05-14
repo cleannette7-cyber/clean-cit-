@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avant / Après de mes interventions | Clean-Cité</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f5e; --orange:#f47920; --blue:#2b6cb0; --light:#f8f9fc;
+  --gray:#6b7280; --light-gray:#e5e7eb; --white:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;color:var(--navy);background:var(--light);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.nav-brand{text-decoration:none;display:flex;align-items:center;gap:8px}.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;color:var(--navy)}.nav-logo span{color:var(--orange)}
+.nav-right{display:flex;align-items:center;gap:24px}.nav-right a{text-decoration:none;font-weight:800;font-size:.86rem;color:var(--navy);text-transform:uppercase;letter-spacing:1px;white-space:nowrap}.nav-right a:hover{color:var(--orange)}
+.nav-cta{background:var(--orange);color:white!important;padding:10px 22px;border-radius:50px;box-shadow:0 4px 16px rgba(244,121,32,.35)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer}.hamburger span{display:block;width:25px;height:2.5px;background:var(--navy);border-radius:2px}
+@media(max-width:860px){nav{padding:13px 20px}.nav-logo{font-size:1.6rem}.hamburger{display:flex}.nav-right{display:none;position:fixed;top:64px;left:0;right:0;background:white;flex-direction:column;align-items:stretch;padding:16px 20px 24px;box-shadow:0 10px 30px rgba(0,0,0,.1);gap:0}.nav-right.open{display:flex}.nav-right a{padding:13px 0;border-bottom:1px solid var(--light-gray)}.nav-cta{margin-top:12px;text-align:center;padding:14px;border-radius:50px}}
+.hero{padding:150px 60px 80px;background:linear-gradient(135deg,var(--navy),#0f1e3d 70%,#162848);position:relative;overflow:hidden}.hero:after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:90px;background:var(--light);clip-path:ellipse(55% 100% at 50% 100%)}
+.hero-inner{position:relative;z-index:1;max-width:980px}.badge{display:inline-block;background:rgba(244,121,32,.18);border:1px solid rgba(244,121,32,.45);color:var(--orange);font-size:.78rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:7px 18px;border-radius:50px;margin-bottom:22px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.4rem,7vw,5.6rem);line-height:.95;color:white;letter-spacing:3px;margin-bottom:14px}h1 span{color:var(--orange)}
+.hero p{color:rgba(255,255,255,.72);font-size:1.08rem;line-height:1.7;max-width:650px}.btn-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}.btn{display:inline-block;text-decoration:none;border-radius:50px;padding:15px 30px;font-weight:900}.btn-primary{background:var(--orange);color:white;box-shadow:0 8px 28px rgba(244,121,32,.45)}.btn-outline{border:2px solid rgba(255,255,255,.3);color:white}
+.section{padding:85px 60px}.intro{max-width:760px;margin:0 auto 48px;text-align:center}.section-label{font-size:.78rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;display:block}.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:2px;color:var(--navy);line-height:1;margin-bottom:14px}.section-sub{color:var(--gray);font-size:1rem;line-height:1.7}
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px;max-width:1180px;margin:0 auto}.ba-card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 18px 55px rgba(26,47,94,.10);border:1px solid rgba(26,47,94,.06)}.ba-head{padding:24px 24px 10px}.ba-head h3{font-size:1.15rem;font-weight:900;color:var(--navy);margin-bottom:8px}.ba-head p{font-size:.9rem;line-height:1.6;color:var(--gray)}
+.ba-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 18px 22px}.ba-photo{height:220px;border-radius:18px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(145deg,#d7dbe4,#f6f7fb);border:2px dashed #cbd5e1;color:#64748b;font-weight:900;text-align:center;padding:18px}.ba-photo.after{background:linear-gradient(145deg,#fff7ed,#ffffff);border-color:rgba(244,121,32,.45);color:var(--orange)}.ba-photo span{position:absolute;top:12px;left:12px;background:rgba(26,47,94,.92);color:white;border-radius:50px;padding:5px 12px;font-size:.72rem;letter-spacing:1px;text-transform:uppercase}.ba-photo.after span{background:var(--orange)}
+
+.ba-photo img{width:100%;height:100%;object-fit:cover;display:block}.ba-photo.has-image{padding:0;border:none;background:#f1f5f9}.ba-photo.has-image span{z-index:2}.ba-meta{display:flex;gap:8px;flex-wrap:wrap;padding:0 24px 20px}.ba-chip{display:inline-flex;align-items:center;background:#f1f5f9;color:var(--navy);border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:900}.ba-chip.orange{background:#fff7ed;color:var(--orange)}.empty-admin{max-width:900px;margin:0 auto 28px;background:white;border:1px solid rgba(244,121,32,.25);border-radius:18px;padding:18px 22px;color:var(--gray);line-height:1.65;box-shadow:0 10px 28px rgba(26,47,94,.07)}.empty-admin strong{color:var(--navy)}
+.tip{max-width:900px;margin:44px auto 0;background:white;border-left:5px solid var(--orange);border-radius:16px;padding:22px 26px;color:var(--gray);line-height:1.7;box-shadow:0 12px 35px rgba(26,47,94,.08)}.tip strong{color:var(--navy)}
+.cta{padding:80px 60px;background:linear-gradient(135deg,var(--navy),#0f1e3d);text-align:center}.cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.1rem,5vw,3.4rem);color:white;letter-spacing:2px;margin-bottom:12px}.cta p{color:rgba(255,255,255,.68);line-height:1.7;max-width:650px;margin:0 auto 28px}
+footer{background:var(--navy);color:rgba(255,255,255,.62);padding:34px 60px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer p{font-size:.82rem}footer .nav-logo{font-size:1.4rem;color:white}
+@media(max-width:860px){.hero{padding:120px 22px 70px}.section{padding:60px 20px}.ba-photos{grid-template-columns:1fr}.ba-photo{height:190px}.cta{padding:65px 20px}footer{padding:28px 20px;flex-direction:column;text-align:center}}
+
+
+/* ===== CORRECTION VISUELS LOGO + HOMME DE MÉNAGE ===== */
+.nav-city-logo{height:54px;width:auto;display:block;object-fit:contain}.nav-worker{height:58px;width:auto;display:block;object-fit:contain}.nav-brand{gap:8px}.hero{display:flex;align-items:center;justify-content:space-between;gap:50px}.hero-inner{flex:1}.hero-visual{position:relative;z-index:1;flex:1;display:flex;justify-content:center;align-items:center;min-width:280px}.hero-card-visual{position:relative;width:min(390px,100%);min-height:430px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:34px;box-shadow:0 28px 85px rgba(0,0,0,.28);overflow:hidden;backdrop-filter:blur(10px)}.hero-card-visual::before{content:'';position:absolute;inset:auto -30% -35% -30%;height:70%;background:radial-gradient(circle,rgba(244,121,32,.35),rgba(244,121,32,0) 70%)}.hero-card-visual .hero-logo-img{position:absolute;top:22px;left:22px;right:22px;width:calc(100% - 44px);max-height:100px;object-fit:contain;background:white;border-radius:20px;padding:10px;box-shadow:0 12px 35px rgba(0,0,0,.18)}.hero-card-visual .hero-agent-img{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);height:345px;width:auto;max-width:92%;object-fit:contain;filter:drop-shadow(0 22px 35px rgba(0,0,0,.35))}
+@media(max-width:980px){.hero{flex-direction:column;align-items:flex-start}.hero-visual{width:100%;}.hero-card-visual{min-height:360px;width:min(340px,100%)}.hero-card-visual .hero-agent-img{height:280px}.hero-card-visual .hero-logo-img{max-height:84px}.nav-city-logo{height:42px}.nav-worker{height:46px}}
+@media(max-width:520px){.nav-worker{display:none}.hero-card-visual{min-height:320px}.hero-card-visual .hero-agent-img{height:245px}.hero-card-visual .hero-logo-img{top:18px;left:18px;right:18px;width:calc(100% - 36px)}}
+
+
+.whatsapp-float{position:fixed;right:22px;bottom:22px;z-index:2000;background:#25D366;color:white;text-decoration:none;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.75rem;box-shadow:0 14px 35px rgba(0,0,0,.25);font-weight:900;transition:transform .2s ease}.whatsapp-float:hover{transform:translateY(-3px)}@media(max-width:520px){.whatsapp-float{right:16px;bottom:16px;width:56px;height:56px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-brand"><img src="images/logo-clean-cite.png" class="nav-city-logo" alt="Logo Clean-Cité"><div class="nav-logo">CLEAN-<span>CITÉ</span></div><img src="images/agent-nettoyage.png" class="nav-worker" alt="Homme de ménage Clean-Cité"></a>
+  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-right" id="nav-right">
+    <a href="index.html#services" onclick="closeMobile()">Services</a>
+    <a href="index.html#why" onclick="closeMobile()">Pourquoi nous</a>
+    <a href="index.html#abonnement" onclick="closeMobile()">Abonnements</a>
+    <a href="avant-apres.html" onclick="closeMobile()">Avant / Après</a>
+    <a href="planning.html" onclick="closeMobile()">Planning</a>
+    <a href="index.html#contact" onclick="closeMobile()">Contact</a>
+    <a href="index.html#contact" class="nav-cta" onclick="closeMobile()">Demander un devis</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="badge">✦ Réalisations Clean-Cité</div>
+    <h1>AVANT / <span>APRÈS</span><br><small style="font-size:.34em;letter-spacing:2px;color:rgba(255,255,255,.84)">DE MES INTERVENTIONS</small></h1>
+    <p>Découvrez l’impact d’une intervention professionnelle : nettoyage de chantier, remise en état, vitrerie, parties communes et locaux professionnels. Cette page est prête à recevoir vos photos réelles.</p>
+    <div class="btn-row">
+      <a href="index.html#contact" class="btn btn-primary">Demander une intervention</a>
+      <a href="index.html" class="btn btn-outline">Retour à l’accueil</a>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-card-visual">
+      <img src="images/logo-clean-cite.png" class="hero-logo-img" alt="Logo Clean-Cité">
+      <img src="images/agent-nettoyage.png" class="hero-agent-img" alt="Homme de ménage Clean-Cité">
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="section">
+  <div class="intro">
+    <span class="section-label">Nos transformations</span>
+    <h2 class="section-title">Des espaces remis au propre</h2>
+    <p class="section-sub">Ajoutez ici les photos prises avant et après chaque intervention pour rassurer les clients et montrer la qualité du travail Clean-Cité.</p>
+  </div>
+
+  <div class="empty-admin" id="adminHelp" style="display:none;"><strong>Mode professionnel :</strong> cette galerie peut maintenant être alimentée depuis la page privée <strong>/admin</strong>. Ajoutez vos photos avant/après, publiez, puis Netlify mettra le site à jour automatiquement.</div>
+
+  <div class="ba-grid" id="interventionsGrid">
+    <article class="ba-card">
+      <div class="ba-head"><h3>Nettoyage fin de chantier</h3><p>Poussières, traces de travaux, sols et surfaces remis au propre avant livraison.</p></div>
+      <div class="ba-photos"><div class="ba-photo"><span>Avant</span>Photo avant à intégrer</div><div class="ba-photo after"><span>Après</span>Photo après à intégrer</div></div>
+    </article>
+    <article class="ba-card">
+      <div class="ba-head"><h3>Parties communes</h3><p>Halls, escaliers, ascenseurs et locaux poubelles entretenus avec soin.</p></div>
+      <div class="ba-photos"><div class="ba-photo"><span>Avant</span>Photo avant à intégrer</div><div class="ba-photo after"><span>Après</span>Photo après à intégrer</div></div>
+    </article>
+    <article class="ba-card">
+      <div class="ba-head"><h3>Remise en état</h3><p>Intervention approfondie pour des locaux encrassés, après travaux ou déménagement.</p></div>
+      <div class="ba-photos"><div class="ba-photo"><span>Avant</span>Photo avant à intégrer</div><div class="ba-photo after"><span>Après</span>Photo après à intégrer</div></div>
+    </article>
+    <article class="ba-card">
+      <div class="ba-head"><h3>Vitrerie & vitrines</h3><p>Nettoyage des surfaces vitrées accessibles pour un rendu clair et professionnel.</p></div>
+      <div class="ba-photos"><div class="ba-photo"><span>Avant</span>Photo avant à intégrer</div><div class="ba-photo after"><span>Après</span>Photo après à intégrer</div></div>
+    </article>
+    <article class="ba-card">
+      <div class="ba-head"><h3>Bureaux & locaux</h3><p>Espaces de travail, sanitaires, sols et zones de contact propres et présentables.</p></div>
+      <div class="ba-photos"><div class="ba-photo"><span>Avant</span>Photo avant à intégrer</div><div class="ba-photo after"><span>Après</span>Photo après à intégrer</div></div>
+    </article>
+    <article class="ba-card">
+      <div class="ba-head"><h3>Terrasses & extérieurs</h3><p>Nettoyage des abords, terrasses et surfaces extérieures selon l’état du site.</p></div>
+      <div class="ba-photos"><div class="ba-photo"><span>Avant</span>Photo avant à intégrer</div><div class="ba-photo after"><span>Après</span>Photo après à intégrer</div></div>
+    </article>
+  </div>
+
+  <div class="tip"><strong>Conseil :</strong> pour un rendu plus commercial, utilisez des photos prises au même angle, avec la même lumière, et ajoutez uniquement les interventions où la différence est très visible.</div>
+</section>
+
+<section class="cta">
+  <h2>Besoin d’une remise au propre ?</h2>
+  <p>Clean-Cité intervient en Île-de-France pour les syndics, copropriétés, chantiers, bureaux, commerces et locaux professionnels.</p>
+  <a href="index.html#contact" class="btn btn-primary">Demander mon devis</a>
+</section>
+</main>
+
+<footer>
+  <div class="nav-logo">CLEAN-<span>CITÉ</span></div>
+  <p>© 2026 Clean-Cité — SIRET : 989 248 554 00010 — Nettoyage professionnel en Île-de-France.</p>
+</footer>
+<script>
+function toggleMobile(){document.getElementById('nav-right').classList.toggle('open')}
+function closeMobile(){document.getElementById('nav-right').classList.remove('open')}
+
+function escapeHtml(value){
+  return String(value || '').replace(/[&<>"']/g, function(char){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[char] || char;
+  });
+}
+function imageBlock(src, label, extraClass){
+  if(!src){ return `<div class="ba-photo ${extraClass||''}"><span>${label}</span>Photo ${label.toLowerCase()} à intégrer</div>`; }
+  return `<div class="ba-photo has-image ${extraClass||''}"><span>${label}</span><img src="${escapeHtml(src)}" alt="Photo ${label.toLowerCase()} intervention Clean-Cité" loading="lazy"></div>`;
+}
+function renderInterventions(items){
+  const grid = document.getElementById('interventionsGrid');
+  const adminHelp = document.getElementById('adminHelp');
+  const published = (items || []).filter(item => item && item.publier !== false);
+  if(!published.length){
+    adminHelp.style.display = 'block';
+    return;
+  }
+  adminHelp.style.display = 'none';
+  grid.innerHTML = published.map(item => {
+    const title = escapeHtml(item.titre || 'Intervention Clean-Cité');
+    const description = escapeHtml(item.description || 'Intervention de nettoyage professionnel réalisée par Clean-Cité.');
+    const ville = escapeHtml(item.ville || 'Île-de-France');
+    const type = escapeHtml(item.type_prestation || 'Nettoyage');
+    const date = escapeHtml(item.date || '');
+    return `<article class="ba-card">
+      <div class="ba-head"><h3>${title}</h3><p>${description}</p></div>
+      <div class="ba-meta"><span class="ba-chip orange">${type}</span><span class="ba-chip">${ville}</span>${date ? `<span class="ba-chip">${date}</span>` : ''}</div>
+      <div class="ba-photos">${imageBlock(item.photo_avant, 'Avant', '')}${imageBlock(item.photo_apres, 'Après', 'after')}</div>
+    </article>`;
+  }).join('');
+}
+fetch('data/interventions.json', { cache: 'no-store' })
+  .then(response => response.ok ? response.json() : { interventions: [] })
+  .then(data => renderInterventions(data.interventions || []))
+  .catch(() => renderInterventions([]));
+</script>
+<a class="whatsapp-float" href="https://wa.me/33766536154?text=Bonjour%20Clean-Cit%C3%A9%2C%20je%20souhaite%20un%20devis%20pour%20une%20prestation%20de%20nettoyage." target="_blank" aria-label="Contacter Clean-Cité sur WhatsApp">☎</a>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', function(user) {
+    if (!user) {
+      window.netlifyIdentity.on('login', function() { document.location.href = '/admin/'; });
+    }
+  });
+}
+</script>
+</body>
+</html>

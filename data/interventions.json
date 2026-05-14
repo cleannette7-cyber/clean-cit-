@@ -1,0 +1,14 @@
+{
+  "interventions": [
+    {
+      "publier": false,
+      "titre": "Exemple - Nettoyage fin de chantier",
+      "type_prestation": "Fin de chantier",
+      "ville": "Bobigny",
+      "date": "2026-05-14",
+      "description": "Exemple masqué : remplacez cette fiche par une vraie intervention depuis l’espace admin.",
+      "photo_avant": "",
+      "photo_apres": ""
+    }
+  ]
+}
