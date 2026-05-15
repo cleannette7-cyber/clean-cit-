@@ -352,5 +352,41 @@ if (window.netlifyIdentity) {
   });
 }
 </script>
+
+ <script>
+async function chargerPlanning() {
+  const zone = document.querySelector("#planning-list");
+  if (!zone) return;
+
+  try {
+    const response = await fetch("/data/planning.json");
+    const data = await response.json();
+
+    const planning = (data.planning || []).filter(item => item.publier !== false);
+
+    if (planning.length === 0) {
+      zone.innerHTML = "<p>Aucune intervention programmée pour le moment.</p>";
+      return;
+    }
+
+    zone.innerHTML = planning.map(item => `
+      <div class="planning-card">
+        <h3>${item.type_prestation || "Intervention"}</h3>
+        <p><strong>Date :</strong> ${item.date || ""}</p>
+        <p><strong>Heure :</strong> ${item.heure || ""}</p>
+        <p><strong>Secteur :</strong> ${item.ville || ""}</p>
+        <p><strong>Statut :</strong> ${item.statut || ""}</p>
+        ${item.note ? `<p>${item.note}</p>` : ""}
+      </div>
+    `).join("");
+
+  } catch (error) {
+    zone.innerHTML = "<p>Impossible de charger le planning pour le moment.</p>";
+  }
+}
+
+chargerPlanning();
+</script>
+  
 </body>
 </html>
