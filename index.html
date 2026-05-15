@@ -712,27 +712,54 @@ footer p { font-size:0.82rem; }
     <div class="cinfo"><div class="cicon">📍</div><div><strong>Adresse</strong><span>149 rue de Paris, Bobigny 93000</span></div></div>
     <div class="cinfo"><div class="cicon">👤</div><div><strong>Contact</strong><span>Traore Fousseyni</span></div></div>
   </div>
-  <div class="cform">
-    <h3>DEMANDE DE DEVIS</h3>
-    <div class="form-group"><label>Votre nom</label><input type="text" placeholder="Jean Dupont"></div>
-    <div class="form-group"><label>Téléphone</label><input type="tel" placeholder="06 00 00 00 00"></div>
+<div class="cform">
+  <h3>DEMANDE DE DEVIS</h3>
+
+  <form name="demande-devis" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="demande-devis">
+    <p style="display:none;">
+      <label>Ne pas remplir : <input name="bot-field"></label>
+    </p>
+
+    <div class="form-group">
+      <label>Votre nom</label>
+      <input type="text" name="nom" required placeholder="Jean Dupont">
+    </div>
+
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input type="tel" name="telephone" required placeholder="06 00 00 00 00">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" required placeholder="votre@email.com">
+    </div>
+
     <div class="form-group">
       <label>Type de service</label>
-      <select>
-        <option value="">Sélectionnez un service…</option>
+      <select name="type_service" required>
+        <option value="">Sélectionnez un service</option>
         <option>Chantier en cours</option>
         <option>Fin de chantier</option>
         <option>Nettoyage de bureaux</option>
         <option>Sortie de poubelles</option>
-        <option>Tapis &amp; canapés</option>
+        <option>Tapis & canapés</option>
         <option>Terrasse</option>
-        <option>Vitrines</option>
+        <option>Vitres</option>
         <option>Gestion des clés</option>
+        <option>Autre</option>
       </select>
     </div>
-    <div class="form-group"><label>Message</label><textarea placeholder="Décrivez votre besoin…"></textarea></div>
-    <button class="btn-submit" onclick="envoyerContact();return false;">ENVOYER MA DEMANDE →</button>
-  </div>
+
+    <div class="form-group">
+      <label>Message</label>
+      <textarea name="message" required placeholder="Décrivez votre besoin..."></textarea>
+    </div>
+
+    <button class="btn-submit" type="submit">ENVOYER MA DEMANDE</button>
+  </form>
+</div>
 </section>
 
 <!-- FOOTER -->
