@@ -357,39 +357,76 @@ if (window.netlifyIdentity) {
 }
 </script>
 
- <script>
+<script>
 async function chargerPlanning() {
-  const zone = document.querySelector("#planning-list");
-  if (!zone) return;
-
   try {
     const response = await fetch("/data/planning.json");
     const data = await response.json();
 
     const planning = (data.planning || []).filter(item => item.publier !== false);
 
-    if (planning.length === 0) {
-      zone.innerHTML = "<p>Aucune intervention programmée pour le moment.</p>";
-      return;
-    }
-
-    zone.innerHTML = planning.map(item => `
-      <div class="planning-card">
-        <h3>${item.type_prestation || "Intervention"}</h3>
-        <p><strong>Date :</strong> ${item.date || ""}</p>
-        <p><strong>Heure :</strong> ${item.heure || ""}</p>
-        <p><strong>Secteur :</strong> ${item.ville || ""}</p>
-        <p><strong>Statut :</strong> ${item.statut || ""}</p>
-        ${item.note ? `<p>${item.note}</p>` : ""}
-      </div>
-    `).join("");
-
+    afficherPlanningSemaine(planning);
   } catch (error) {
-    zone.innerHTML = "<p>Impossible de charger le planning pour le moment.</p>";
+    console.error("Erreur chargement planning :", error);
+  }
+}
+
+function afficherPlanningSemaine(planning) {
+  const weekGrid = document.getElementById("week-grid");
+  if (!weekGrid) return;
+
+  const today = new Date();
+  const monday = new Date(today);
+  const day = today.getDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  monday.setDate(today.getDate() + diff);
+
+  const jours = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+
+  weekGrid.innerHTML = "";
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + i);
+
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const dateISO = `${yyyy}-${mm}-${dd}`;
+
+    const interventionsDuJour = planning.filter(item => item.date === dateISO);
+
+    const card = document.createElement("div");
+    card.className = "day-card";
+
+    card.innerHTML = `
+      <div class="day-head">
+        <strong>${jours[i]}</strong>
+        <span>${dd}/${mm}</span>
+      </div>
+      <div class="day-content">
+        ${
+          interventionsDuJour.length
+            ? interventionsDuJour.map(item => `
+              <div class="planning-item">
+                <strong>${item.type_prestation || "Intervention"}</strong>
+                <p>${item.heure || ""}</p>
+                <p>${item.ville || ""}</p>
+                <p>${item.statut || ""}</p>
+                ${item.note ? `<small>${item.note}</small>` : ""}
+              </div>
+            `).join("")
+            : `<p>Aucune intervention</p>`
+        }
+      </div>
+    `;
+
+    weekGrid.appendChild(card);
   }
 }
 
 chargerPlanning();
+</script>
 </script>
   
 </body>
