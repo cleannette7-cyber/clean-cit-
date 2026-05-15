@@ -464,32 +464,31 @@ function afficherPlanningSemaine(planning) {
 
     const interventionsDuJour = planning.filter(item => item.date === dateISO);
 
-    const card = document.createElement("div");
-    card.className = "day-card";
+    const dayBox = document.createElement("div");
+    dayBox.className = "week-day";
 
-    card.innerHTML = `
-      <div class="day-head">
-        <strong>${jours[i]}</strong>
-        <span>${dd}/${mm}</span>
+    dayBox.innerHTML = `
+      <div class="week-day-head">
+        <span class="week-day-name">${jours[i]}</span>
+        <span class="week-day-date">${dd}/${mm}</span>
       </div>
-      <div class="day-content">
-        ${
-          interventionsDuJour.length
-            ? interventionsDuJour.map(item => `
-              <div class="planning-item">
-                <strong>${item.type_prestation || "Intervention"}</strong>
-                <p>${item.heure || ""}</p>
-                <p>${item.ville || ""}</p>
-                <p>${item.statut || ""}</p>
+
+      ${
+        interventionsDuJour.length > 0
+          ? interventionsDuJour.map(item => `
+              <div class="week-event">
+                <div class="week-event-title">${item.type_prestation || "Intervention"}</div>
+                <p><strong>Heure :</strong> ${item.heure || ""}</p>
+                <p><strong>Secteur :</strong> ${item.ville || ""}</p>
+                <p><strong>Statut :</strong> ${item.statut || ""}</p>
                 ${item.note ? `<small>${item.note}</small>` : ""}
               </div>
             `).join("")
-            : `<p>Aucune intervention</p>`
-        }
-      </div>
+          : `<p class="week-empty">Aucune intervention</p>`
+      }
     `;
 
-    weekGrid.appendChild(card);
+    weekGrid.appendChild(dayBox);
   }
 }
 
