@@ -50,3 +50,39 @@ collections:
               - { label: "Description courte", name: "description", widget: "text", required: false, hint: "Expliquez rapidement ce qui a été nettoyé." }
               - { label: "Photo avant", name: "photo_avant", widget: "image", required: false, media_library: { config: { multiple: false } } }
               - { label: "Photo après", name: "photo_apres", widget: "image", required: false, media_library: { config: { multiple: false } } }
+      
+      - name: "planning_interventions"
+        label: "Planning des interventions"
+        file: "data/planning.json"
+        format: "json"
+        fields:
+          - label: "Planning"
+            name: "planning"
+            widget: "list"
+            summary: "{{fields.date}} - {{fields.heure}} - {{fields.type_prestation}}"
+            minimize_collapsed: true
+            fields:
+              - { label: "Publier sur le site", name: "publier", widget: "boolean", default: true }
+              - { label: "Date", name: "date", widget: "datetime", required: true, date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Heure", name: "heure", widget: "string", required: false, hint: "Exemple : 09h00 - 11h00" }
+              - label: "Type de prestation"
+                name: "type_prestation"
+                widget: "select"
+                options:
+                  - "Nettoyage de chantier"
+                  - "Parties communes"
+                  - "Bureaux & locaux"
+                  - "Vitrerie"
+                  - "Remise en état"
+                  - "Rendez-vous devis"
+                  - "Autre"
+              - { label: "Ville / secteur", name: "ville", widget: "string", required: false, hint: "Exemple : Bobigny, Paris, Saint-Denis" }
+              - label: "Statut"
+                name: "statut"
+                widget: "select"
+                options:
+                  - "Prévu"
+                  - "Confirmé"
+                  - "Terminé"
+                  - "Annulé"
+              - { label: "Note publique", name: "note", widget: "text", required: false, hint: "Ne pas mettre d'information privée client." }
