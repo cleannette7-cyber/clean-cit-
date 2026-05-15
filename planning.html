@@ -117,6 +117,74 @@ footer p { color:rgba(255,255,255,.7); margin-top:8px; }
   .filters input,.filters select { width:100%; }
 }
 .whatsapp-float{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:#25D366;color:white;text-decoration:none;display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:999}
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 1px solid #d8d8d8;
+  border-top: none;
+  border-radius: 0 0 18px 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.week-day {
+  min-height: 180px;
+  padding: 16px 14px;
+  border-right: 1px solid #d8d8d8;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.week-day:last-child {
+  border-right: none;
+}
+
+.week-day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.week-day-name {
+  color: #13223a;
+}
+
+.week-day-date {
+  color: #b45b22;
+  font-weight: 800;
+}
+
+.week-empty {
+  color: #6b6b6b;
+  font-size: 15px;
+}
+
+.week-event {
+  background: #ffffff;
+  border-left: 4px solid #c86b2b;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.week-event-title {
+  font-weight: 800;
+  color: #10233d;
+  margin-bottom: 5px;
+}
+
+.week-event p {
+  margin: 3px 0;
+  font-size: 14px;
+}
+
+.week-event small {
+  display: block;
+  margin-top: 6px;
+  color: #555;
+}
 </style>
 </head>
 <body>
