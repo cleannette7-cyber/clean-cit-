@@ -1,7 +1,7 @@
 {
   "planning": [
     {
-      "publier": true,
+      "publier": false,
       "heure": "9h00-11h00",
       "type_prestation": "Rendez-vous devis",
       "ville": "bobigny",
