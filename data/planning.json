@@ -10,7 +10,7 @@
       "date": "2026-05-15"
     },
     {
-      "publier": true,
+      "publier": false,
       "date": "2026-05-17",
       "heure": "15h00 - 19h00",
       "type_prestation": "Parties communes",
