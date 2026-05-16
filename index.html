@@ -788,18 +788,20 @@ footer p { font-size:0.82rem; }
     </div>
     <hr style="margin:18px 0;border:none;border-top:2px solid var(--light-gray);">
 
-    <div id="devis-step1">
-      <p class="devis-sep">1. Quel(s) service(s) ?</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;">
-        <label class="devis-check"><input type="checkbox" value="Chantier en cours"> Chantier en cours</label>
-        <label class="devis-check"><input type="checkbox" value="Fin de chantier"> Fin de chantier</label>
-        <label class="devis-check"><input type="checkbox" value="Bureaux"> Nettoyage bureaux</label>
-        <label class="devis-check"><input type="checkbox" value="Poubelles"> Sortie poubelles</label>
-        <label class="devis-check"><input type="checkbox" value="Tapis et canapés"> Tapis &amp; canapés</label>
-        <label class="devis-check"><input type="checkbox" value="Terrasse"> Terrasse</label>
-        <label class="devis-check"><input type="checkbox" value="Vitrines"> Vitrines</label>
-        <label class="devis-check"><input type="checkbox" value="Gestion des clés"> Gestion des clés</label>
-      </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;">
+  <label class="devis-check"><input type="checkbox" value="Chantier en cours"> Chantier en cours</label>
+  <label class="devis-check"><input type="checkbox" value="Fin de chantier"> Fin de chantier</label>
+  <label class="devis-check"><input type="checkbox" value="Remise en état"> Remise en état</label>
+  <label class="devis-check"><input type="checkbox" value="Bureaux et locaux"> Bureaux & locaux</label>
+  <label class="devis-check"><input type="checkbox" value="Parties communes"> Parties communes</label>
+  <label class="devis-check"><input type="checkbox" value="Vitrerie"> Vitrerie</label>
+  <label class="devis-check"><input type="checkbox" value="Sortie poubelles"> Sortie poubelles</label>
+  <label class="devis-check"><input type="checkbox" value="Tapis et canapés"> Tapis & canapés</label>
+  <label class="devis-check"><input type="checkbox" value="Terrasse"> Terrasse</label>
+  <label class="devis-check"><input type="checkbox" value="Gestion des clés"> Gestion des clés</label>
+  <label class="devis-check"><input type="checkbox" value="Intervention urgente"> Intervention urgente</label>
+  <label class="devis-check"><input type="checkbox" value="Autre prestation"> Autre prestation</label>
+</div>
       <p class="devis-sep">2. Superficie (m²) — si applicable</p>
       <input id="d-surface" type="number" min="0" placeholder="ex : 80" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;margin-bottom:16px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#f47920'" onblur="this.style.borderColor='#e5e7eb'">
       <p class="devis-sep">3. État du lieu</p>
