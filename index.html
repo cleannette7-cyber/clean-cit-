@@ -789,18 +789,18 @@ footer p { font-size:0.82rem; }
     <hr style="margin:18px 0;border:none;border-top:2px solid var(--light-gray);">
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;">
-  <label class="devis-check"><input type="checkbox" value="Chantier en cours"> Chantier en cours</label>
-  <label class="devis-check"><input type="checkbox" value="Fin de chantier"> Fin de chantier</label>
-  <label class="devis-check"><input type="checkbox" value="Remise en état"> Remise en état</label>
-  <label class="devis-check"><input type="checkbox" value="Bureaux et locaux"> Bureaux & locaux</label>
-  <label class="devis-check"><input type="checkbox" value="Parties communes"> Parties communes</label>
-  <label class="devis-check"><input type="checkbox" value="Vitrerie"> Vitrerie</label>
-  <label class="devis-check"><input type="checkbox" value="Sortie poubelles"> Sortie poubelles</label>
-  <label class="devis-check"><input type="checkbox" value="Tapis et canapés"> Tapis & canapés</label>
-  <label class="devis-check"><input type="checkbox" value="Terrasse"> Terrasse</label>
-  <label class="devis-check"><input type="checkbox" value="Gestion des clés"> Gestion des clés</label>
-  <label class="devis-check"><input type="checkbox" value="Intervention urgente"> Intervention urgente</label>
-  <label class="devis-check"><input type="checkbox" value="Autre prestation"> Autre prestation</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Chantier en cours">
+  <label class="devis-check"><input type="checkbox" name="services" value="Fin de chantier"> Fin de chantier</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Remise en état"> Remise en état</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Bureaux et locaux"> Bureaux & locaux</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Parties communes"> Parties communes</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Vitrerie"> Vitrerie</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Sortie poubelles"> Sortie poubelles</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Tapis et canapés"> Tapis & canapés</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Terrasse"> Terrasse</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Gestion des clés"> Gestion des clés</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Intervention urgente"> Intervention urgente</label>
+  <label class="devis-check"><input type="checkbox" name="services" value="Autre prestation"> Autre prestation</label>
 </div>
       <p class="devis-sep">2. Superficie (m²) — si applicable</p>
       <input id="d-surface" type="number" min="0" placeholder="ex : 80" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;margin-bottom:16px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#f47920'" onblur="this.style.borderColor='#e5e7eb'">
@@ -961,10 +961,9 @@ function resetDevis(clear=true){
   if(clear) lastEstimateMessage='';
 }
 function genererDevis(){
-  const allChecked = [...document.querySelectorAll('#devis-step1 input[type=checkbox]:checked')].map(i=>i.value);
-  const supplementNames = ['désinfection','taches difficiles',"poils d'animaux",'déplacement'];
-  const services = allChecked.filter(v=>!supplementNames.includes(v));
-  const supps = allChecked.filter(v=>supplementNames.includes(v));
+ const services = Array.from(document.querySelectorAll('#devis-step1 input[name="services"]:checked')).map(input => input.value.trim());
+ const supps = Array.from(document.querySelectorAll('#devis-step1 input[name="supplements"]:checked')).map(input => input.value.trim());
+ 
   if(!services.length){
   alert('Veuillez cocher au moins un service dans la partie 1 : Chantier, bureaux, vitrerie, canapé, terrasse, etc.');
   return;
