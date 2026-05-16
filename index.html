@@ -965,7 +965,10 @@ function genererDevis(){
   const supplementNames = ['désinfection','taches difficiles',"poils d'animaux",'déplacement'];
   const services = allChecked.filter(v=>!supplementNames.includes(v));
   const supps = allChecked.filter(v=>supplementNames.includes(v));
-  if(!services.length){ alert('Veuillez sélectionner au moins un service.'); return; }
+  if(!services.length){
+  alert('Veuillez cocher au moins un service dans la partie 1 : Chantier, bureaux, vitrerie, canapé, terrasse, etc.');
+  return;
+}
   const surface = Math.max(0, Number($('d-surface')?.value || 0));
   const etat = document.querySelector('input[name="etat"]:checked')?.value || 'standard';
   const freq = document.querySelector('input[name="freq"]:checked')?.value || 'unique';
