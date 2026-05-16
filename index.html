@@ -789,44 +789,76 @@ footer p { font-size:0.82rem; }
     <hr style="margin:18px 0;border:none;border-top:2px solid var(--light-gray);">
 
     <div id="devis-step1">
+
+  <p class="devis-sep">1. Quel(s) service(s) ?</p>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;">
-  <label class="devis-check"><input type="checkbox" name="services" value="Chantier en cours">
-  <label class="devis-check"><input type="checkbox" name="services" value="Fin de chantier"> Fin de chantier</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Remise en état"> Remise en état</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Bureaux et locaux"> Bureaux & locaux</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Parties communes"> Parties communes</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Vitrerie"> Vitrerie</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Sortie poubelles"> Sortie poubelles</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Tapis et canapés"> Tapis & canapés</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Terrasse"> Terrasse</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Gestion des clés"> Gestion des clés</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Intervention urgente"> Intervention urgente</label>
-  <label class="devis-check"><input type="checkbox" name="services" value="Autre prestation"> Autre prestation</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Chantier en cours"> Chantier en cours</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Fin de chantier"> Fin de chantier</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Remise en état"> Remise en état</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Bureaux et locaux"> Bureaux & locaux</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Parties communes"> Parties communes</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Vitrerie"> Vitrerie</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Sortie poubelles"> Sortie poubelles</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Tapis"> Tapis</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Canapé"> Canapé</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Terrasse"> Terrasse</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Gestion des clés"> Gestion des clés</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Intervention urgente"> Intervention urgente</label>
+    <label class="devis-check"><input type="checkbox" name="services" value="Autre prestation"> Autre prestation</label>
+  </div>
+
+  <p class="devis-sep">2. Main-d’œuvre et durée</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:16px;">
+    <input id="d-agents" type="number" min="1" value="1" placeholder="Nombre d'agents" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+    <input id="d-heures" type="number" min="0" value="1" placeholder="Heures par passage" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+    <input id="d-passages" type="number" min="1" value="1" placeholder="Nombre de passages" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+  </div>
+
+  <p class="devis-sep">3. Superficie (m²) — si applicable</p>
+  <input id="d-surface" type="number" min="0" placeholder="ex : 80" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;margin-bottom:16px;outline:none;">
+
+  <p class="devis-sep">4. Canapé / tapis — si applicable</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+    <input id="d-canape-places" type="number" min="0" placeholder="Nombre de places canapé" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+    <label class="devis-check"><input id="d-canape-angle" type="checkbox"> Canapé d’angle</label>
+    <input id="d-tapis-petit" type="number" min="0" placeholder="Nombre de petits tapis" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+    <input id="d-tapis-grand" type="number" min="0" placeholder="Nombre de grands tapis" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+  </div>
+
+  <p class="devis-sep">5. Sortie de poubelles — si applicable</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+    <input id="d-bacs" type="number" min="0" placeholder="Nombre de bacs" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+    <input id="d-passages-poubelles" type="number" min="1" value="1" placeholder="Nombre de passages poubelles" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
+  </div>
+
+  <p class="devis-sep">6. État du lieu</p>
+  <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
+    <label class="devis-radio"><input type="radio" name="etat" value="léger"> ⬜ Léger</label>
+    <label class="devis-radio"><input type="radio" name="etat" value="standard" checked> 🟧 Standard</label>
+    <label class="devis-radio"><input type="radio" name="etat" value="très sale"> 🟥 Très sale</label>
+  </div>
+
+  <p class="devis-sep">7. Fréquence</p>
+  <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
+    <label class="devis-radio"><input type="radio" name="freq" value="unique" checked> Prestation unique</label>
+    <label class="devis-radio"><input type="radio" name="freq" value="mensuel"> Mensuel</label>
+    <label class="devis-radio"><input type="radio" name="freq" value="hebdomadaire"> Hebdomadaire</label>
+  </div>
+
+  <p class="devis-sep">8. Suppléments</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+    <label class="devis-check"><input type="checkbox" name="supplements" value="désinfection"> 🧪 Désinfection</label>
+    <label class="devis-check"><input type="checkbox" name="supplements" value="taches difficiles"> ⚠️ Taches difficiles</label>
+    <label class="devis-check"><input type="checkbox" name="supplements" value="poils d'animaux"> 🐾 Poils d'animaux</label>
+    <label class="devis-check"><input type="checkbox" name="supplements" value="déplacement"> 🚗 Déplacement</label>
+    <label class="devis-check"><input type="checkbox" name="supplements" value="nettoyage bacs"> 🗑️ Nettoyage des bacs</label>
+  </div>
+
+  <p class="devis-sep">9. Description — optionnel</p>
+  <textarea id="d-desc" placeholder="Ex : chantier 3600m², 2 agents, 8h par passage, 1 fois par semaine pendant 2 mois…" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.9rem;min-height:80px;resize:vertical;outline:none;margin-bottom:20px;"></textarea>
+
+  <button onclick="genererDevis()" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--blue));color:white;border:none;padding:15px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;letter-spacing:0.5px;">Calculer mon pré-devis</button>
 </div>
-      <p class="devis-sep">2. Superficie (m²) — si applicable</p>
-      <input id="d-surface" type="number" min="0" placeholder="ex : 80" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;margin-bottom:16px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#f47920'" onblur="this.style.borderColor='#e5e7eb'">
-      <p class="devis-sep">3. État du lieu</p>
-      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
-        <label class="devis-radio"><input type="radio" name="etat" value="léger"> ⬜ Léger</label>
-        <label class="devis-radio"><input type="radio" name="etat" value="standard" checked> 🟧 Standard</label>
-        <label class="devis-radio"><input type="radio" name="etat" value="très sale"> 🟥 Très sale</label>
-      </div>
-      <p class="devis-sep">4. Fréquence</p>
-      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
-        <label class="devis-radio"><input type="radio" name="freq" value="unique" checked> Prestation unique</label>
-        <label class="devis-radio"><input type="radio" name="freq" value="mensuel"> Mensuel</label>
-        <label class="devis-radio"><input type="radio" name="freq" value="hebdomadaire"> Hebdomadaire</label>
-      </div>
-      <p class="devis-sep">5. Suppléments</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
-        <label class="devis-check"><input type="checkbox" value="désinfection"> 🧪 Désinfection</label>
-        <label class="devis-check"><input type="checkbox" value="taches difficiles"> ⚠️ Taches difficiles</label>
-        <label class="devis-check"><input type="checkbox" value="poils d'animaux"> 🐾 Poils d'animaux</label>
-        <label class="devis-check"><input type="checkbox" value="déplacement"> 🚗 Déplacement</label>
-      </div>
-      <p class="devis-sep">6. Description — optionnel</p>
-      <textarea id="d-desc" placeholder="Ex : bureau de 80m² à Bobigny, 2 fois par mois, vitres incluses…" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.9rem;min-height:80px;resize:vertical;outline:none;margin-bottom:20px;transition:border-color 0.2s;" onfocus="this.style.borderColor='#f47920'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
-      <button onclick="genererDevis()" style="width:100%;background:linear-gradient(135deg,var(--navy),var(--blue));color:white;border:none;padding:15px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;letter-spacing:0.5px;">Calculer mon pré-devis</button>
     </div>
 
     <div id="devis-step2" style="display:none;">
@@ -845,81 +877,7 @@ footer p { font-size:0.82rem; }
 </div>
 <script>
 // ===== DONNÉES SERVICES =====
- const TARIFS_CLEAN_CITE = {
-  chantierEnCours: {
-    heure: 25,
-    m2: 4.5
-  },
 
-  finChantier: {
-    leger: 5,
-    standard: 8,
-    tresSale: 12
-  },
-
-  remiseEtat: {
-    min: 8,
-    max: 15
-  },
-
-  bureaux: {
-    standard: 3,
-    tresSale: 5,
-    desinfectionMajoration: 20,
-    vitresM2: 2
-  },
-
-  partiesCommunes: {
-    m2: 3.5,
-    forfaitMensuel: "Sur devis"
-  },
-
-  poubelles: {
-    unBac: 10,
-    deuxAQuatreBacs: 25,
-    cinqADixBacs: 50,
-    nettoyageBacs: 30
-  },
-
-  tapisCanapes: {
-    tapisPetitMin: 30,
-    tapisPetitMax: 60,
-    tapisGrandMin: 80,
-    tapisGrandMax: 150,
-    canape2pMin: 70,
-    canape2pMax: 120,
-    canape3pMin: 120,
-    canape3pMax: 180,
-    canapeAngleMin: 180,
-    canapeAngleMax: 350,
-    matelasMin: 50,
-    matelasMax: 120
-  },
-
-  terrasse: {
-    petite: 99,
-    moyenne: 199,
-    grande: 350
-  },
-
-  vitrerie: {
-    accessible: 2.5,
-    standard: 5,
-    tresSale: 8
-  },
-
-  gestionCles: {
-    surDevis: true
-  },
-
-  urgence: {
-    supplement: 180
-  },
-
-  autre: {
-    surDevis: true
-  }
-};
   
   const SVC = {
   'chantier-cours':{icon:'🏗️',title:'Chantier en cours',desc:"Entretien et nettoyage pendant la durée du chantier : déblaiement, dépoussiérage, évacuation des déchets au fil de l'avancement.",tarifs:[{l:'Tarif horaire',v:'25 € / heure'}],extras:[],note:'Tarif dégressif à partir de 40h/mois. Devis mensuel sur demande.'},
@@ -963,28 +921,257 @@ function resetDevis(clear=true){
   if(clear) lastEstimateMessage='';
 }
 function genererDevis(){
- const services = Array.from(document.querySelectorAll('#devis-step1 input[name="services"]:checked')).map(input => input.value.trim());
- const supps = Array.from(document.querySelectorAll('#devis-step1 input[name="supplements"]:checked')).map(input => input.value.trim());
- 
+  const services = Array.from(document.querySelectorAll('#devis-step1 input[name="services"]:checked')).map(input => input.value.trim());
+  const supps = Array.from(document.querySelectorAll('#devis-step1 input[name="supplements"]:checked')).map(input => input.value.trim());
+
   if(!services.length){
-  alert('Veuillez cocher au moins un service dans la partie 1 : Chantier, bureaux, vitrerie, canapé, terrasse, etc.');
-  return;
-}
-  const surface = Math.max(0, Number($('d-surface')?.value || 0));
+    alert('Veuillez cocher au moins un service dans la partie 1 : chantier, bureaux, vitrerie, canapé, terrasse, etc.');
+    return;
+  }
+
+  const getNumber = (id, def = 0) => Math.max(0, Number($(id)?.value || def));
+
+  const surface = getNumber('d-surface');
+  const agents = Math.max(1, getNumber('d-agents', 1));
+  const heures = getNumber('d-heures', 1);
+  const passages = Math.max(1, getNumber('d-passages', 1));
+
+  const bacs = getNumber('d-bacs');
+  const passagesPoubelles = Math.max(1, getNumber('d-passages-poubelles', 1));
+
+  const canapePlaces = getNumber('d-canape-places');
+  const canapeAngle = $('d-canape-angle')?.checked || false;
+
+  const tapisPetit = getNumber('d-tapis-petit');
+  const tapisGrand = getNumber('d-tapis-grand');
+
   const etat = document.querySelector('input[name="etat"]:checked')?.value || 'standard';
   const freq = document.querySelector('input[name="freq"]:checked')?.value || 'unique';
   const desc = $('d-desc')?.value.trim() || '';
-  const etatCoef = etat === 'léger' ? 0.9 : (etat === 'très sale' ? 1.35 : 1);
-  const freqCoef = freq === 'hebdomadaire' ? 0.82 : (freq === 'mensuel' ? 0.88 : 1);
-  const map = {'Chantier en cours':{base:4.5,fixed:150,detail:'Nettoyage pendant travaux'},'Fin de chantier':{base:6.5,fixed:180,detail:'Remise en propreté après travaux'},'Bureaux':{base:3,fixed:150,detail:'Entretien bureaux et locaux'},'Poubelles':{base:0,fixed:90,detail:'Sortie et gestion des bacs'},'Tapis et canapés':{base:0,fixed:120,detail:'Nettoyage textiles'},'Terrasse':{base:0,fixed:199,detail:'Nettoyage terrasse / extérieur'},'Vitrines':{base:2.5,fixed:60,detail:'Vitrerie accessible'},'Gestion des clés':{base:0,fixed:80,detail:'Ouverture, fermeture, coordination'}};
+
   let total = 0;
-  const lignes = services.map(name=>{ const d = map[name] || {base:3,fixed:150,detail:'Prestation de nettoyage'}; let amount = d.base && surface ? surface*d.base : d.fixed; amount = amount*etatCoef*freqCoef; amount = Math.max(amount, d.fixed || 60); total += amount; return {service:name, detail:d.detail + (surface && d.base ? ` — ${surface} m²` : ''), montant:Math.round(amount)}; });
-  supps.forEach(s=>{ let amount = s === 'désinfection' ? total*0.20 : (s === 'taches difficiles' ? 30 : (s === "poils d'animaux" ? 30 : 35)); total += amount; lignes.push({service:s.charAt(0).toUpperCase()+s.slice(1), detail:'Option complémentaire', montant:Math.round(amount)}); });
-  total = Math.max(total, 150); const min=Math.round(total); const max=Math.round(total*1.2); const freqText = freq === 'hebdomadaire' ? 'hebdomadaire' : (freq === 'mensuel' ? 'mensuelle' : 'unique');
-  let html = `<div class="devis-result-card"><h4>📋 VOTRE ESTIMATION</h4>`; lignes.forEach(l=>{ html += `<div class="devis-line"><span style="font-weight:600;color:#374151;font-size:0.88rem;">${l.service}<br><small style="color:#9ca3af;font-weight:400;">${l.detail}</small></span><span style="font-weight:800;color:#f47920;">${l.montant} €</span></div>`; });
-  html += `</div><div class="devis-total"><div><span style="font-size:0.78rem;opacity:0.85;">ESTIMATION INDICATIVE</span><br><strong>${min} € – ${max} €</strong></div><span style="font-size:0.78rem;opacity:0.8;">Valable 30 jours</span></div><div class="devis-remark">💡 Tarif indicatif à confirmer après échange selon l’accès, l’état réel du site, les horaires et les besoins exacts.</div>`;
-  lastEstimateMessage = `Bonjour Clean-Cité, je souhaite un devis. Prestation : ${services.join(', ')}. Surface : ${surface || 'non précisée'} m². État : ${etat}. Fréquence : ${freqText}. Options : ${supps.join(', ') || 'aucune'}. Estimation du simulateur : ${min} € - ${max} €. ${desc ? 'Informations : '+desc : ''}`;
-  if($('devis-step1')) $('devis-step1').style.display='none'; if($('devis-step2')) $('devis-step2').style.display='block'; if($('devis-loading')) $('devis-loading').style.display='none'; if($('devis-result')) $('devis-result').innerHTML=html;
+  const lignes = [];
+
+  const addLine = (service, detail, montant) => {
+    if(typeof montant === 'number'){
+      total += montant;
+      lignes.push({service, detail, montant: Math.round(montant)});
+    } else {
+      lignes.push({service, detail, montant});
+    }
+  };
+
+  const hourlyTotal = agents * heures * passages * 25;
+
+  if(services.includes('Chantier en cours')){
+    addLine(
+      'Chantier en cours',
+      `${agents} agent(s) x ${heures}h x ${passages} passage(s) à 25€/h`,
+      hourlyTotal
+    );
+  }
+
+  if(services.includes('Bureaux et locaux')){
+    addLine(
+      'Bureaux & locaux',
+      `${agents} agent(s) x ${heures}h x ${passages} passage(s) à 25€/h`,
+      hourlyTotal
+    );
+  }
+
+  if(services.includes('Fin de chantier')){
+    if(!surface){
+      alert('Pour une fin de chantier, indique une superficie en m².');
+      return;
+    }
+    const tarif = etat === 'léger' ? 5 : etat === 'très sale' ? 12 : 8;
+    addLine('Fin de chantier', `${surface} m² x ${tarif}€/m²`, Math.max(surface * tarif, 180));
+  }
+
+  if(services.includes('Remise en état')){
+    if(!surface){
+      alert('Pour une remise en état, indique une superficie en m².');
+      return;
+    }
+    const tarif = etat === 'léger' ? 8 : etat === 'très sale' ? 15 : 11;
+    addLine('Remise en état', `${surface} m² x ${tarif}€/m²`, Math.max(surface * tarif, 180));
+  }
+
+  if(services.includes('Parties communes')){
+    if(!surface){
+      addLine('Parties communes', 'Forfait mensuel à confirmer selon l’immeuble', 'Sur devis');
+    } else {
+      addLine('Parties communes', `${surface} m² x 3,5€/m² x ${passages} passage(s)`, Math.max(surface * 3.5 * passages, 120));
+    }
+  }
+
+  if(services.includes('Vitrerie')){
+    if(!surface){
+      alert('Pour la vitrerie, indique la superficie en m².');
+      return;
+    }
+    const tarif = etat === 'léger' ? 2.5 : etat === 'très sale' ? 8 : 5;
+    addLine('Vitrerie', `${surface} m² x ${tarif}€/m²`, Math.max(surface * tarif, 60));
+  }
+
+  if(services.includes('Sortie poubelles')){
+    if(!bacs){
+      alert('Pour la sortie de poubelles, indique le nombre de bacs.');
+      return;
+    }
+
+    let prixParPassage = 0;
+    if(bacs === 1) prixParPassage = 10;
+    else if(bacs >= 2 && bacs <= 4) prixParPassage = 25;
+    else if(bacs >= 5 && bacs <= 10) prixParPassage = 50;
+    else prixParPassage = 50 + ((bacs - 10) * 5);
+
+    addLine(
+      'Sortie poubelles',
+      `${bacs} bac(s) x ${passagesPoubelles} passage(s)`,
+      prixParPassage * passagesPoubelles
+    );
+  }
+
+  if(services.includes('Tapis')){
+    if(!tapisPetit && !tapisGrand){
+      alert('Pour les tapis, indique au moins le nombre de petits ou grands tapis.');
+      return;
+    }
+
+    const montantTapis = (tapisPetit * 45) + (tapisGrand * 115);
+    addLine(
+      'Tapis',
+      `${tapisPetit} petit(s) tapis + ${tapisGrand} grand(s) tapis`,
+      montantTapis
+    );
+  }
+
+  if(services.includes('Canapé')){
+    if(!canapePlaces){
+      alert('Pour le canapé, indique le nombre de places.');
+      return;
+    }
+
+    let montantCanape = canapePlaces * 50;
+    if(canapePlaces <= 2) montantCanape = Math.max(montantCanape, 70);
+    if(canapeAngle) montantCanape += 80;
+
+    addLine(
+      'Canapé',
+      `${canapePlaces} place(s)${canapeAngle ? ' + canapé d’angle' : ''}`,
+      montantCanape
+    );
+  }
+
+  if(services.includes('Terrasse')){
+    if(surface && surface <= 30) addLine('Terrasse', 'Petite terrasse', 99);
+    else if(surface && surface <= 80) addLine('Terrasse', 'Terrasse moyenne', 199);
+    else addLine('Terrasse', 'Grande terrasse', 350);
+  }
+
+  if(services.includes('Gestion des clés')){
+    addLine('Gestion des clés', 'Tarif selon durée, fréquence et responsabilité', 'Sur devis');
+  }
+
+  if(services.includes('Autre prestation')){
+    addLine('Autre prestation', 'Prestation spécifique à étudier', 'Sur devis');
+  }
+
+  if(services.includes('Intervention urgente')){
+    addLine('Intervention urgente', 'Supplément urgence', 180);
+  }
+
+  supps.forEach(s => {
+    if(s === 'désinfection'){
+      const montant = total > 0 ? total * 0.20 : 40;
+      addLine('Désinfection', '+20% sur la prestation', montant);
+    }
+
+    if(s === 'taches difficiles'){
+      addLine('Taches difficiles', 'Option complémentaire', 30);
+    }
+
+    if(s === "poils d'animaux"){
+      addLine('Poils d’animaux', 'Option complémentaire', 30);
+    }
+
+    if(s === 'déplacement'){
+      addLine('Déplacement', 'Frais indicatifs de déplacement', 35);
+    }
+
+    if(s === 'nettoyage bacs'){
+      addLine('Nettoyage des bacs', 'Supplément nettoyage bacs', 30);
+    }
+  });
+
+  const min = total > 0 ? Math.round(total) : 'Sur devis';
+  const max = total > 0 ? Math.round(total * 1.20) : '';
+
+  let html = `<div class="devis-result-card"><h4>📋 VOTRE ESTIMATION</h4>`;
+
+  lignes.forEach(l => {
+    const montantAffiche = typeof l.montant === 'number' ? `${l.montant} €` : l.montant;
+    html += `
+      <div class="devis-line">
+        <span style="font-weight:600;color:#374151;font-size:0.88rem;">
+          ${l.service}<br>
+          <small style="color:#9ca3af;font-weight:400;">${l.detail}</small>
+        </span>
+        <span style="font-weight:800;color:#f47920;">${montantAffiche}</span>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  if(total > 0){
+    html += `
+      <div class="devis-total">
+        <div>
+          <span style="font-size:0.78rem;opacity:0.85;">ESTIMATION INDICATIVE</span><br>
+          <strong>${min} € – ${max} €</strong>
+        </div>
+        <span style="font-size:0.78rem;opacity:0.8;">À confirmer</span>
+      </div>
+    `;
+  } else {
+    html += `
+      <div class="devis-total">
+        <div>
+          <span style="font-size:0.78rem;opacity:0.85;">ESTIMATION</span><br>
+          <strong>Sur devis</strong>
+        </div>
+      </div>
+    `;
+  }
+
+  html += `<div class="devis-remark">💡 Tarif indicatif à confirmer après échange selon l’accès, l’état réel du site, les horaires, la durée du chantier et les besoins exacts.</div>`;
+
+  lastEstimateMessage = `Bonjour Clean-Cité,
+
+Je souhaite recevoir un devis.
+
+Services : ${services.join(', ')}
+Surface : ${surface || 'non précisée'} m²
+Main-d’œuvre : ${agents} agent(s)
+Durée : ${heures}h par passage
+Nombre de passages : ${passages}
+État du lieu : ${etat}
+Fréquence : ${freq}
+Nombre de bacs : ${bacs || 'non concerné'}
+Passages poubelles : ${passagesPoubelles}
+Canapé : ${canapePlaces || 'non concerné'} place(s)
+Tapis : ${tapisPetit || 0} petit(s), ${tapisGrand || 0} grand(s)
+Options : ${supps.join(', ') || 'aucune'}
+Estimation : ${total > 0 ? `${min} € - ${max} €` : 'Sur devis'}
+
+${desc ? 'Informations complémentaires : ' + desc : ''}`;
+
+  if($('devis-step1')) $('devis-step1').style.display='none';
+  if($('devis-step2')) $('devis-step2').style.display='block';
+  if($('devis-loading')) $('devis-loading').style.display='none';
+  if($('devis-result')) $('devis-result').innerHTML = html;
 }
 function envoyerDevis(){ const msg = lastEstimateMessage || 'Bonjour Clean-Cité, je souhaite recevoir un devis pour une prestation de nettoyage.'; window.location.href='mailto:cleannette7@gmail.com?subject=Demande de devis Clean-Cité&body='+encodeURIComponent(msg); }
 function envoyerContact(){ const form=document.querySelector('.cform'); if(!form) return; const inputs=form.querySelectorAll('input, select, textarea'); const nom=inputs[0]?.value.trim()||'Non renseigné'; const tel=inputs[1]?.value.trim()||'Non renseigné'; const service=inputs[2]?.value||'Non renseigné'; const message=inputs[3]?.value.trim()||'Non renseigné'; const body=`Bonjour Clean-Cité,
