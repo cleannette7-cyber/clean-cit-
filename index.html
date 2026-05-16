@@ -844,7 +844,81 @@ footer p { font-size:0.82rem; }
 
 <script>
 // ===== DONNÉES SERVICES =====
-const SVC = {
+const TARIFS_CLEAN_CITE = {
+  "Chantier en cours": {
+    heure: 25,
+    m2: 4.5
+  },
+
+  "Fin de chantier": {
+    leger: 5,
+    standard: 8,
+    tresSale: 12
+  },
+
+  "Remise en état": {
+    min: 8,
+    max: 15
+  },
+
+  "Bureaux": {
+    standard: 3,
+    tresSale: 5,
+    desinfectionMajoration: 20,
+    vitresM2: 2
+  },
+
+  "Parties communes": {
+    m2: 3.5,
+    forfaitMensuel: "Sur devis"
+  },
+
+  "Sortie poubelles": {
+    unBac: 10,
+    deuxAQuatreBacs: 25,
+    cinqADixBacs: 50,
+    nettoyageBacs: 30
+  },
+
+  "Tapis et canapés": {
+    tapisPetitMin: 30,
+    tapisPetitMax: 60,
+    tapisGrandMin: 80,
+    tapisGrandMax: 150,
+    canape2pMin: 70,
+    canape2pMax: 120,
+    canape3pMin: 120,
+    canape3pMax: 180,
+    canapeAngleMin: 180,
+    canapeAngleMax: 350,
+    matelasMin: 50,
+    matelasMax: 120
+  },
+
+  "Terrasse": {
+    petite: 99,
+    moyenne: 199,
+    grande: 350
+  },
+
+  "Vitrines": {
+    accessible: 2.5,
+    standard: 5,
+    tresSale: 8
+  },
+
+  "Gestion des clés": {
+    surDevis: true
+  },
+
+  "Urgence": {
+    supplement: 180
+  },
+
+  "Autre": {
+    surDevis: true
+  }
+};const SVC = {
   'chantier-cours':{icon:'🏗️',title:'Chantier en cours',desc:"Entretien et nettoyage pendant la durée du chantier : déblaiement, dépoussiérage, évacuation des déchets au fil de l'avancement.",tarifs:[{l:'Tarif horaire',v:'25 € / heure'}],extras:[],note:'Tarif dégressif à partir de 40h/mois. Devis mensuel sur demande.'},
   'chantier-fin':{icon:'✅',title:'Fin de chantier',desc:'Remise en propreté complète après travaux : nettoyage des sols, vitres, surfaces et évacuation des déchets avant livraison.',tarifs:[{l:'Léger',v:'5 € / m²'},{l:'Standard',v:'8 € / m²'},{l:'Très sale',v:'12 € / m²'}],extras:[],note:''},
   'bureaux':{icon:'🏢',title:'Nettoyage de bureaux',desc:'Entretien régulier de vos espaces de travail pour un environnement sain, propre et agréable.',tarifs:[{l:'Standards',v:'3 € / m²'},{l:'Très sales',v:'5 € / m²'}],extras:[{l:'Désinfection',v:'+ 20 %'},{l:'Vitres',v:'+ 2 € / m²'}],note:''},
