@@ -808,7 +808,7 @@ footer p { font-size:0.82rem; }
   </div>
 
   <p class="devis-sep">2. Main-d’œuvre et durée</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:16px;">
+  <div id="bloc-main-duree"style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:16px;">
     <input id="d-agents" type="number" min="1" value="1" placeholder="Nombre d'agents" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
     <input id="d-heures" type="number" min="0" value="1" placeholder="Heures par passage" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
     <input id="d-passages" type="number" min="1" value="1" placeholder="Nombre de passages" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
@@ -818,7 +818,7 @@ footer p { font-size:0.82rem; }
   <input id="d-surface" type="number" min="0" placeholder="ex : 80" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;font-family:'Nunito',sans-serif;font-size:0.95rem;margin-bottom:16px;outline:none;">
 
   <p class="devis-sep">4. Canapé / tapis — si applicable</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+  <div id="bloc-canape-tapis"style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
     <input id="d-canape-places" type="number" min="0" placeholder="Nombre de places canapé" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
     <label class="devis-check"><input id="d-canape-angle" type="checkbox"> Canapé d’angle</label>
     <input id="d-tapis-petit" type="number" min="0" placeholder="Nombre de petits tapis" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
@@ -826,27 +826,27 @@ footer p { font-size:0.82rem; }
   </div>
 
   <p class="devis-sep">5. Sortie de poubelles — si applicable</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+  <div id="bloc-poubelles"style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
     <input id="d-bacs" type="number" min="0" placeholder="Nombre de bacs" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
     <input id="d-passages-poubelles" type="number" min="1" value="1" placeholder="Nombre de passages poubelles" style="width:100%;padding:11px 15px;border:2px solid var(--light-gray);border-radius:11px;">
   </div>
 
   <p class="devis-sep">6. État du lieu</p>
-  <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
+  <div id="bloc-etat"style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
     <label class="devis-radio"><input type="radio" name="etat" value="léger"> ⬜ Léger</label>
     <label class="devis-radio"><input type="radio" name="etat" value="standard" checked> 🟧 Standard</label>
     <label class="devis-radio"><input type="radio" name="etat" value="très sale"> 🟥 Très sale</label>
   </div>
 
   <p class="devis-sep">7. Fréquence</p>
-  <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
+  <div id="bloc-frequence"style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;">
     <label class="devis-radio"><input type="radio" name="freq" value="unique" checked> Prestation unique</label>
     <label class="devis-radio"><input type="radio" name="freq" value="mensuel"> Mensuel</label>
     <label class="devis-radio"><input type="radio" name="freq" value="hebdomadaire"> Hebdomadaire</label>
   </div>
 
   <p class="devis-sep">8. Suppléments</p>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
+  <div id="bloc-supplements"style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;">
     <label class="devis-check"><input type="checkbox" name="supplements" value="désinfection"> 🧪 Désinfection</label>
     <label class="devis-check"><input type="checkbox" name="supplements" value="taches difficiles"> ⚠️ Taches difficiles</label>
     <label class="devis-check"><input type="checkbox" name="supplements" value="poils d'animaux"> 🐾 Poils d'animaux</label>
@@ -920,8 +920,97 @@ function resetDevis(clear=true){
   if($('devis-loading')) { $('devis-loading').style.display='block'; $('devis-loading').innerHTML='<span class="spinner">⚙️</span><p style="margin-top:14px;font-weight:700;color:var(--navy);">Calcul de votre estimation…</p>'; }
   if(clear) lastEstimateMessage='';
 }
-function genererDevis(){
-  const services = Array.from(document.querySelectorAll('#devis-step1 input[name="services"]:checked')).map(input => input.value.trim());
+function afficherBlocDevis(id, afficher) {
+  const bloc = document.getElementById(id);
+  if (!bloc) return;
+
+  bloc.style.display = afficher ? '' : 'none';
+
+  const titre = bloc.previousElementSibling;
+  if (titre && titre.classList.contains('devis-sep')) {
+    titre.style.display = afficher ? '' : 'none';
+  }
+}
+
+function afficherChampAvecTitre(id, afficher) {
+  const champ = document.getElementById(id);
+  if (!champ) return;
+
+  champ.style.display = afficher ? '' : 'none';
+
+  const titre = champ.previousElementSibling;
+  if (titre && titre.classList.contains('devis-sep')) {
+    titre.style.display = afficher ? '' : 'none';
+  }
+}
+
+function afficherElementDevis(id, afficher) {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  const cible = element.closest('label') || element;
+  cible.style.display = afficher ? '' : 'none';
+}
+
+function mettreAJourPreDevis() {
+  const labelsServices = Array.from(document.querySelectorAll('#devis-step1 .devis-check'));
+  const servicesCoches = Array.from(document.querySelectorAll('#devis-step1 .devis-check input[type="checkbox"]:checked'));
+  const services = servicesCoches.map(input => input.value.trim());
+  const serviceChoisi = services.length > 0;
+
+  labelsServices.forEach(label => {
+    const input = label.querySelector('input[type="checkbox"]');
+    if (!input) return;
+
+    label.style.display = (!serviceChoisi || input.checked) ? '' : 'none';
+  });
+
+  const texteServices = services.join(' ').toLowerCase();
+
+  const chantierEnCours = texteServices.includes('chantier en cours');
+  const finChantier = texteServices.includes('fin de chantier');
+  const remiseEtat = texteServices.includes('remise en état');
+  const bureaux = texteServices.includes('bureau') || texteServices.includes('bureaux');
+  const partiesCommunes = texteServices.includes('parties communes');
+  const vitrerie = texteServices.includes('vitrerie');
+  const terrasse = texteServices.includes('terrasse');
+  const poubelles = texteServices.includes('poubelle');
+  const tapis = texteServices.includes('tapis');
+  const canape = texteServices.includes('canap');
+  const gestionCles = texteServices.includes('gestion des clés');
+  const urgent = texteServices.includes('urgent');
+  const autre = texteServices.includes('autre');
+
+  const afficherSurface = finChantier || remiseEtat || partiesCommunes || vitrerie || terrasse;
+  const afficherMainOeuvre = chantierEnCours || bureaux || urgent || autre;
+  const afficherCanapeTapis = tapis || canape;
+  const afficherPoubelles = poubelles;
+
+  afficherChampAvecTitre('d-surface', serviceChoisi && afficherSurface);
+
+  afficherBlocDevis('bloc-main-duree', serviceChoisi && afficherMainOeuvre);
+  afficherBlocDevis('bloc-canape-tapis', serviceChoisi && afficherCanapeTapis);
+  afficherBlocDevis('bloc-poubelles', serviceChoisi && afficherPoubelles);
+
+  afficherElementDevis('d-canape-places', canape);
+  afficherElementDevis('d-canape-angle', canape);
+  afficherElementDevis('d-tapis-petit', tapis);
+  afficherElementDevis('d-tapis-grand', tapis);
+
+  afficherBlocDevis('bloc-etat', serviceChoisi && !gestionCles && !autre);
+  afficherBlocDevis('bloc-frequence', serviceChoisi && (chantierEnCours || bureaux || partiesCommunes || vitrerie || poubelles || gestionCles));
+  afficherBlocDevis('bloc-supplements', serviceChoisi);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('#devis-step1 .devis-check input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', mettreAJourPreDevis);
+  });
+
+  mettreAJourPreDevis();
+});
+  function genererDevis(){
+  const services = Array.from(document.querySelectorAll('#devis-step1 .devis-check input[type="checkbox"]:checked')).map(input => input.value.trim());;
   const supps = Array.from(document.querySelectorAll('#devis-step1 input[name="supplements"]:checked')).map(input => input.value.trim());
 
   if(!services.length){
